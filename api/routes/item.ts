@@ -1,18 +1,71 @@
 import express from "express";
 import prisma from "../../lib/prisma";
-
+import axios from "axios";
 import { authenticateToken } from "../../middleware/auth";
 
 const router = express.Router();
-
 router.use(express.json());
 interface AuthenticatedRequest extends Request {
   user: {
     userId: number;
   };
 }
+
+let cachedToken: string | null = null;
+let tokenExpiresAt: number = 0;
+
+async function getAccessToken() {
+  const base64 = (str: string) => Buffer.from(str).toString("base64");
+  const now = Date.now();
+
+  if (!cachedToken || now >= tokenExpiresAt) {
+    const authString = base64(
+      process.env.KROGER_CLIENT_ID + ":" + process.env.KROGER_SECRET
+    );
+
+    const response = await axios.post(
+      "https://api.kroger.com/v1/connect/oauth2/token",
+      "grant_type=client_credentials&scope=product.compact",
+      {
+        headers: {
+          Authorization: "Basic " + authString,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+
+    cachedToken = response.data.access_token;
+    tokenExpiresAt = now + response.data.expires_in * 1000 - 60000;
+  }
+
+  return cachedToken;
+}
+router.post("/scan", async (req, res) => {
+  const { data } = req.body;
+  if (data != null) {
+    let productId = data.slice(0, -1);
+    try {
+      const token = await getAccessToken();
+      const response = await axios.get(
+        `https://api.kroger.com/v1/products?filter.term=${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const productData = response.data;
+      console.log("Kroger response data:", productData);
+      res.send(productData);
+    } catch (error) {
+      console.error("Error occurred:", error);
+      res.send(error);
+    }
+  }
+});
 router.post("/", authenticateToken, async (req, res) => {
-  const { name, expirationDate } = req.body;
+  const { productId, name, expirationDate } = req.body;
 
   if (!req.user) {
     res.sendStatus(401);
@@ -27,7 +80,6 @@ router.post("/", authenticateToken, async (req, res) => {
         userId: req.user.userId,
       },
     });
-
     res.status(201).json(newItem);
   } catch (error) {
     console.error(error);
