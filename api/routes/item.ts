@@ -1,15 +1,10 @@
 import express from "express";
 import prisma from "../../lib/prisma";
 import axios from "axios";
-import { authenticateToken } from "../../middleware/auth";
+import mongoClient from "../../lib/mongo";
 
 const router = express.Router();
 router.use(express.json());
-interface AuthenticatedRequest extends Request {
-  user: {
-    userId: number;
-  };
-}
 
 let cachedToken: string | null = null;
 let tokenExpiresAt: number = 0;
@@ -43,31 +38,40 @@ async function getAccessToken() {
 router.post("/scan", async (req, res) => {
   const { data } = req.body;
   if (data != null) {
-    let productId = data.slice(0, -1);
     try {
-      const token = await getAccessToken();
-      const response = await axios.get(
-        `https://api.kroger.com/v1/products?filter.term=${productId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await mongoClient.connect();
+      const db = mongoClient.db("Grocery");
+      const collection = db.collection("Pantry");
+      const result = await collection.findOne({ code: data });
 
-      const productData = response.data;
-      console.log("Kroger response data:", productData);
-      res.send(productData);
-    } catch (error) {
-      console.error("Error occurred:", error);
-      res.send(error);
+      res.status(202).json({ data: result });
+    } catch (err) {
+      console.error(err);
+      res.send(err);
     }
+    // try {
+    //   const token = await getAccessToken();
+    //   const response = await axios.get(
+    //     `https://api.kroger.com/v1/products?filter.term=${productId}`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+    //   const productData = response.data;
+    //   console.log("Kroger response data:", productData);
+    //   res.send(productData);
+    // } catch (error) {
+    //   console.error("Error occurred:", error);
+    //   res.send(error);
+    // }
   }
 });
-router.post("/", authenticateToken, async (req, res) => {
+router.post("/", async (req, res) => {
   const { productId, name, expirationDate } = req.body;
 
-  if (!req.user) {
+  if (!req.body.user) {
     res.sendStatus(401);
     return;
   }
@@ -77,7 +81,7 @@ router.post("/", authenticateToken, async (req, res) => {
       data: {
         name,
         expirationDate,
-        userId: req.user.userId,
+        userId: req.body.userId,
       },
     });
     res.status(201).json(newItem);
@@ -87,12 +91,12 @@ router.post("/", authenticateToken, async (req, res) => {
   }
 });
 
-router.get("/", authenticateToken, async (req, res) => {
-  if (!req.user) {
+router.get("/", async (req, res) => {
+  if (!req.body.user) {
     res.sendStatus(401);
     return;
   }
-  const userId = req.user.userId;
+  const userId = req.body.user.userId;
   if (isNaN(userId)) {
     res.status(400).json({ message: "Invalid userId" });
     return;

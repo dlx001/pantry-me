@@ -15,10 +15,8 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String?
-  email    String
-  password String
+  id      Int    @id @default(autoincrement())
+  clerkId String
 }
 
 model Item {
