@@ -82,6 +82,7 @@ router.post("/", async (req, res) => {
         name,
         expirationDate,
         userId: req.body.userId,
+        listId: 1,
       },
     });
     res.status(201).json(newItem);

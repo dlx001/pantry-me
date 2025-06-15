@@ -24,4 +24,13 @@ model Item {
   name           String
   expirationDate DateTime
   userId         Int
+  listId         Int
+  list           List     @relation(fields: [listId], references: [id])
+}
+
+model List {
+  userId String
+  id     Int    @id @default(autoincrement())
+  name   String
+  items  Item[]
 }

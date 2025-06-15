@@ -129,7 +129,14 @@ exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
   expirationDate: 'expirationDate',
-  userId: 'userId'
+  userId: 'userId',
+  listId: 'listId'
+};
+
+exports.Prisma.ListScalarFieldEnum = {
+  userId: 'userId',
+  id: 'id',
+  name: 'name'
 };
 
 exports.Prisma.SortOrder = {
@@ -145,7 +152,8 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Item: 'Item'
+  Item: 'Item',
+  List: 'List'
 };
 
 /**
