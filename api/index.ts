@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express, { Request, Response } from "express";
-
+import lists from "./routes/lists";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import item from "./routes/item";
@@ -12,7 +12,7 @@ import { clerkMiddleware } from "@clerk/express";
 const app = express();
 app.use(clerkMiddleware());
 app.use("/item", item);
-
+app.use("/lists", lists);
 app.use(express.json());
 
 app.get("/", async function (req: Request, res: Response) {
