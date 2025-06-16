@@ -28,24 +28,6 @@ app.get(
   })
 );
 
-app.post(
-  "/signup",
-  requireAuth(async (req: any, res: any) => {
-    try {
-      const clerkId = req.auth?.userId;
-      const newUser = await prisma.user.create({
-        data: {
-          clerkId: clerkId,
-        },
-      });
-      res.status(201).json(newUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Server error" });
-    }
-  })
-);
-
 app.listen(3000, () => console.log("Server ready on port 3000."));
 
 module.exports = app;
