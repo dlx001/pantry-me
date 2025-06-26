@@ -2,6 +2,7 @@ import express from "express";
 import prisma from "../../lib/prisma";
 import axios from "axios";
 import mongoClient from "../../lib/mongo";
+import { requireAuth } from "@clerk/clerk-sdk-node";
 
 const router = express.Router();
 router.use(express.json());
@@ -68,55 +69,54 @@ router.post("/scan", async (req, res) => {
     // }
   }
 });
-router.post("/", async (req, res) => {
-  const { productId, name, expirationDate } = req.body;
-
-  if (!req.body.user) {
-    res.sendStatus(401);
-    return;
-  }
-
-  try {
-    const newItem = await prisma.item.create({
-      data: {
-        name,
-        expirationDate,
-        userId: req.body.userId,
-        listId: 1,
-      },
-    });
-    res.status(201).json(newItem);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-router.get("/", async (req, res) => {
-  if (!req.body.user) {
-    res.sendStatus(401);
-    return;
-  }
-  const userId = req.body.user.userId;
-  if (isNaN(userId)) {
-    res.status(400).json({ message: "Invalid userId" });
-    return;
-  }
-
-  try {
-    const items = await prisma.item.findMany({
-      where: {
-        userId: userId,
-      },
-    });
-    if (items) {
-      res.status(200).json({ message: "success", data: items });
+router.post(
+  "/",
+  requireAuth(async (req, res) => {
+    const { name, expirationDate } = req.body;
+    const clerkId = req.auth?.userId;
+    if (!clerkId) {
+      res.sendStatus(401);
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
+    try {
+      const newItem = await prisma.item.create({
+        data: {
+          name,
+          userId: clerkId,
+          ...(expirationDate && { expirationDate: expirationDate }),
+        },
+      });
+      res.status(201).json(newItem);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  })
+);
+
+router.get(
+  "/",
+  requireAuth(async (req, res) => {
+    const clerkId = req.auth?.userId;
+    if (!clerkId) {
+      res.sendStatus(401);
+      return;
+    }
+    try {
+      const lists = await prisma.item.findMany({
+        where: {
+          userId: clerkId,
+        },
+      });
+      if (lists) {
+        res.status(200).json({ message: "success", data: lists });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  })
+);
 
 router.delete("/:id", async (req, res) => {
   const itemId = parseInt(req.params.id, 10);
