@@ -19,8 +19,8 @@ model Item {
   name           String
   expirationDate DateTime
   userId         String
-  listId         Int
-  list           List     @relation(fields: [listId], references: [id])
+  listId         Int?
+  list           List?    @relation(fields: [listId], references: [id])
 }
 
 model List {
