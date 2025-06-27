@@ -1162,7 +1162,7 @@ export namespace Prisma {
   export type ItemGroupByOutputType = {
     id: number
     name: string
-    expirationDate: Date
+    expirationDate: Date | null
     userId: string
     listId: number | null
     _count: ItemCountAggregateOutputType | null
@@ -1240,7 +1240,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      expirationDate: Date
+      expirationDate: Date | null
       userId: string
       listId: number | null
     }, ExtArgs["result"]["item"]>
@@ -3311,7 +3311,7 @@ export namespace Prisma {
     NOT?: ItemWhereInput | ItemWhereInput[]
     id?: IntFilter<"Item"> | number
     name?: StringFilter<"Item"> | string
-    expirationDate?: DateTimeFilter<"Item"> | Date | string
+    expirationDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     userId?: StringFilter<"Item"> | string
     listId?: IntNullableFilter<"Item"> | number | null
     list?: XOR<ListNullableScalarRelationFilter, ListWhereInput> | null
@@ -3320,7 +3320,7 @@ export namespace Prisma {
   export type ItemOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    expirationDate?: SortOrder
+    expirationDate?: SortOrderInput | SortOrder
     userId?: SortOrder
     listId?: SortOrderInput | SortOrder
     list?: ListOrderByWithRelationInput
@@ -3332,7 +3332,7 @@ export namespace Prisma {
     OR?: ItemWhereInput[]
     NOT?: ItemWhereInput | ItemWhereInput[]
     name?: StringFilter<"Item"> | string
-    expirationDate?: DateTimeFilter<"Item"> | Date | string
+    expirationDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     userId?: StringFilter<"Item"> | string
     listId?: IntNullableFilter<"Item"> | number | null
     list?: XOR<ListNullableScalarRelationFilter, ListWhereInput> | null
@@ -3341,7 +3341,7 @@ export namespace Prisma {
   export type ItemOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    expirationDate?: SortOrder
+    expirationDate?: SortOrderInput | SortOrder
     userId?: SortOrder
     listId?: SortOrderInput | SortOrder
     _count?: ItemCountOrderByAggregateInput
@@ -3357,7 +3357,7 @@ export namespace Prisma {
     NOT?: ItemScalarWhereWithAggregatesInput | ItemScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Item"> | number
     name?: StringWithAggregatesFilter<"Item"> | string
-    expirationDate?: DateTimeWithAggregatesFilter<"Item"> | Date | string
+    expirationDate?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     userId?: StringWithAggregatesFilter<"Item"> | string
     listId?: IntNullableWithAggregatesFilter<"Item"> | number | null
   }
@@ -3411,7 +3411,7 @@ export namespace Prisma {
 
   export type ItemCreateInput = {
     name: string
-    expirationDate: Date | string
+    expirationDate?: Date | string | null
     userId: string
     list?: ListCreateNestedOneWithoutItemsInput
   }
@@ -3419,14 +3419,14 @@ export namespace Prisma {
   export type ItemUncheckedCreateInput = {
     id?: number
     name: string
-    expirationDate: Date | string
+    expirationDate?: Date | string | null
     userId: string
     listId?: number | null
   }
 
   export type ItemUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
     list?: ListUpdateOneWithoutItemsNestedInput
   }
@@ -3434,7 +3434,7 @@ export namespace Prisma {
   export type ItemUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
     listId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -3442,21 +3442,21 @@ export namespace Prisma {
   export type ItemCreateManyInput = {
     id?: number
     name: string
-    expirationDate: Date | string
+    expirationDate?: Date | string | null
     userId: string
     listId?: number | null
   }
 
   export type ItemUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ItemUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
     listId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -3530,15 +3530,15 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -3630,18 +3630,18 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3706,8 +3706,8 @@ export namespace Prisma {
     set?: string
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type ListUpdateOneWithoutItemsNestedInput = {
@@ -3803,15 +3803,15 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -3869,18 +3869,18 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3950,14 +3950,14 @@ export namespace Prisma {
 
   export type ItemCreateWithoutListInput = {
     name: string
-    expirationDate: Date | string
+    expirationDate?: Date | string | null
     userId: string
   }
 
   export type ItemUncheckedCreateWithoutListInput = {
     id?: number
     name: string
-    expirationDate: Date | string
+    expirationDate?: Date | string | null
     userId: string
   }
 
@@ -3993,7 +3993,7 @@ export namespace Prisma {
     NOT?: ItemScalarWhereInput | ItemScalarWhereInput[]
     id?: IntFilter<"Item"> | number
     name?: StringFilter<"Item"> | string
-    expirationDate?: DateTimeFilter<"Item"> | Date | string
+    expirationDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     userId?: StringFilter<"Item"> | string
     listId?: IntNullableFilter<"Item"> | number | null
   }
@@ -4001,27 +4001,27 @@ export namespace Prisma {
   export type ItemCreateManyListInput = {
     id?: number
     name: string
-    expirationDate: Date | string
+    expirationDate?: Date | string | null
     userId: string
   }
 
   export type ItemUpdateWithoutListInput = {
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ItemUncheckedUpdateWithoutListInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ItemUncheckedUpdateManyWithoutListInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
   }
 

@@ -18,7 +18,7 @@ datasource db {
 model Item{
   id Int @id @default(autoincrement())
   name String
-  expirationDate DateTime
+  expirationDate DateTime?
   userId String
   listId Int?
   list List? @relation(fields: [listId], references: [id])
