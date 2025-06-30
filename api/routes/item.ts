@@ -72,7 +72,7 @@ router.post("/scan", async (req, res) => {
 router.post(
   "/",
   requireAuth(async (req, res) => {
-    const { name, expirationDate } = req.body;
+    const { name, expirationDate, code } = req.body;
     const clerkId = req.auth?.userId;
     if (!clerkId) {
       res.sendStatus(401);
@@ -84,6 +84,7 @@ router.post(
           name,
           userId: clerkId,
           ...(expirationDate && { expirationDate: expirationDate }),
+          ...(code && { code: code }),
         },
       });
       res.status(201).json(newItem);

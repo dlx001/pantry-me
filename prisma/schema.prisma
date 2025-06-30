@@ -17,6 +17,7 @@ datasource db {
 
 model Item{
   id Int @id @default(autoincrement())
+  code String?
   name String
   expirationDate DateTime?
   userId String
