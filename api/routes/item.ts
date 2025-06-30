@@ -118,30 +118,6 @@ router.get(
     }
   })
 );
-
-router.delete("/:id", async (req, res) => {
-  const itemId = parseInt(req.params.id, 10);
-
-  if (isNaN(itemId)) {
-    res.status(400).json({ message: "Invalid itemId" });
-    return;
-  }
-
-  try {
-    const items = await prisma.item.delete({
-      where: {
-        id: itemId,
-      },
-    });
-    if (items) {
-      res.status(200).json({ message: "success" });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
 router.delete("/batch", async (req, res) => {
   const itemIds: number[] = req.body.items;
   if (
@@ -168,5 +144,29 @@ router.delete("/batch", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+router.delete("/:id", async (req, res) => {
+  const itemId = parseInt(req.params.id, 10);
+
+  if (isNaN(itemId)) {
+    res.status(400).json({ message: "Invalid itemId" });
+    return;
+  }
+
+  try {
+    const items = await prisma.item.delete({
+      where: {
+        id: itemId,
+      },
+    });
+    if (items) {
+      res.status(200).json({ message: "success" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 
 export default router;
