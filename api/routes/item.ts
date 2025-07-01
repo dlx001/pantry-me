@@ -94,33 +94,51 @@ router.get("/location",  requireAuth(async (req, res) => {
      res.send(error);
   }
 }));
-router.get("/kroger", async (req, res) => {
-  const { name } = req.query;
-  console.log("test", name);
-
-  if (!name) {
+router.get("/kroger", requireAuth(async (req, res) => {
+  let { locationIds, item } = req.query;
+  if (!locationIds) {
+    res.sendStatus(400);
+    return;
+  }
+  let locationIdArr: string[];
+  if (Array.isArray(locationIds)) {
+    locationIdArr = locationIds as string[];
+  } else if (typeof locationIds === "string") {
+    locationIdArr = [locationIds];
+  } else {
+    res.sendStatus(400);
+    return;
+  }
+  if (!item || typeof item !== "string") {
+    res.sendStatus(400);
+    return;
   }
 
   try {
     const token = await getAccessToken();
+    const results: Record<string, any[]> = {};
+    await Promise.all(
+      locationIdArr.map(async (locationId: string) => {
+        const response = await axios.get("https://api.kroger.com/v1/products", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            "filter.term": item,
+            "filter.locationId": locationId,
+            "filter.limit": 5,
+          },
+        });
+        results[locationId] = response.data.data ? response.data.data.slice(0, 5) : [];
+      })
+    );
 
-    const response = await axios.get("https://api.kroger.com/v1/products", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        "filter.term": name,
-        "filter.locationId": "70300154",
-      },
-    });
-
-    const productData = response.data;
-    console.log("Kroger response data:", productData);
-    res.send(productData);
+    res.status(202).json(results);
   } catch (error) {
-   res.send(error);
+    console.error(error);
+    res.status(500).json({ message: "Error querying Kroger API", error });
   }
-});
+}));
 router.post(
   "/",
   requireAuth(async (req, res) => {
