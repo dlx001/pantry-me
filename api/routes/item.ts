@@ -69,6 +69,58 @@ router.post("/scan", async (req, res) => {
     // }
   }
 });
+router.get("/location",  requireAuth(async (req, res) => {
+  const { latlong } = req.query;
+  if (!latlong) {
+    res.sendStatus(400);
+    return;
+  }
+
+  try {
+    const token = await getAccessToken();
+
+    const response = await axios.get("https://api.kroger.com/v1/locations", {
+      headers: { Authorization: `Bearer ${token}` },
+      params: {
+        "filter.latLong.near": latlong,
+        "filter.limit": 5,
+      },
+    });
+
+    const zipData = response.data;
+    console.log("Kroger response data:", zipData);
+     res.send(zipData);
+  } catch (error:any) {
+     res.send(error);
+  }
+}));
+router.get("/kroger", async (req, res) => {
+  const { name } = req.query;
+  console.log("test", name);
+
+  if (!name) {
+  }
+
+  try {
+    const token = await getAccessToken();
+
+    const response = await axios.get("https://api.kroger.com/v1/products", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        "filter.term": name,
+        "filter.locationId": "70300154",
+      },
+    });
+
+    const productData = response.data;
+    console.log("Kroger response data:", productData);
+    res.send(productData);
+  } catch (error) {
+   res.send(error);
+  }
+});
 router.post(
   "/",
   requireAuth(async (req, res) => {
