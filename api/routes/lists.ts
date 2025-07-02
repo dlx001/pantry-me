@@ -37,7 +37,7 @@ router.get(
 router.post(
   "/",
   requireAuth(async (req, res) => {
-    const { name } = req.body;
+    const { items, name } = req.body;
     const clerkId = req.auth?.userId;
     if (!clerkId) {
       res.sendStatus(401);
@@ -50,6 +50,11 @@ router.post(
           userId: clerkId,
         },
       });
+      for (const item of items) {
+        await prisma.groceryItem.create({
+          data: { ...item, listId: newList.id },
+        });
+      }
       res.status(201).json(newList);
     } catch (error) {
       console.error(error);

@@ -120,13 +120,22 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.GroceryItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  brand: 'brand',
+  unit: 'unit',
+  price: 'price',
+  listId: 'listId',
+  store: 'store'
+};
+
 exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
   expirationDate: 'expirationDate',
-  userId: 'userId',
-  listId: 'listId'
+  userId: 'userId'
 };
 
 exports.Prisma.ListScalarFieldEnum = {
@@ -152,6 +161,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
+  GroceryItem: 'GroceryItem',
   Item: 'Item',
   List: 'List'
 };

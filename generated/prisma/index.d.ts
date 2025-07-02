@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model GroceryItem
+ * 
+ */
+export type GroceryItem = $Result.DefaultSelection<Prisma.$GroceryItemPayload>
+/**
  * Model Item
  * 
  */
@@ -31,8 +36,8 @@ export type List = $Result.DefaultSelection<Prisma.$ListPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Items
- * const items = await prisma.item.findMany()
+ * // Fetch zero or more GroceryItems
+ * const groceryItems = await prisma.groceryItem.findMany()
  * ```
  *
  *
@@ -52,8 +57,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Items
-   * const items = await prisma.item.findMany()
+   * // Fetch zero or more GroceryItems
+   * const groceryItems = await prisma.groceryItem.findMany()
    * ```
    *
    *
@@ -150,6 +155,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.groceryItem`: Exposes CRUD operations for the **GroceryItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GroceryItems
+    * const groceryItems = await prisma.groceryItem.findMany()
+    * ```
+    */
+  get groceryItem(): Prisma.GroceryItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.item`: Exposes CRUD operations for the **Item** model.
     * Example usage:
     * ```ts
@@ -608,6 +623,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    GroceryItem: 'GroceryItem',
     Item: 'Item',
     List: 'List'
   };
@@ -628,10 +644,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "item" | "list"
+      modelProps: "groceryItem" | "item" | "list"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      GroceryItem: {
+        payload: Prisma.$GroceryItemPayload<ExtArgs>
+        fields: Prisma.GroceryItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroceryItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroceryItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>
+          }
+          findFirst: {
+            args: Prisma.GroceryItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroceryItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>
+          }
+          findMany: {
+            args: Prisma.GroceryItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>[]
+          }
+          create: {
+            args: Prisma.GroceryItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>
+          }
+          createMany: {
+            args: Prisma.GroceryItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroceryItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>[]
+          }
+          delete: {
+            args: Prisma.GroceryItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>
+          }
+          update: {
+            args: Prisma.GroceryItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.GroceryItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroceryItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GroceryItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.GroceryItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroceryItemPayload>
+          }
+          aggregate: {
+            args: Prisma.GroceryItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroceryItem>
+          }
+          groupBy: {
+            args: Prisma.GroceryItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroceryItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroceryItemCountArgs<ExtArgs>
+            result: $Utils.Optional<GroceryItemCountAggregateOutputType> | number
+          }
+        }
+      }
       Item: {
         payload: Prisma.$ItemPayload<ExtArgs>
         fields: Prisma.ItemFieldRefs
@@ -864,6 +954,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    groceryItem?: GroceryItemOmit
     item?: ItemOmit
     list?: ListOmit
   }
@@ -982,13 +1073,1154 @@ export namespace Prisma {
    * ListCountOutputType without action
    */
   export type ListCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ItemWhereInput
+    where?: GroceryItemWhereInput
   }
 
 
   /**
    * Models
    */
+
+  /**
+   * Model GroceryItem
+   */
+
+  export type AggregateGroceryItem = {
+    _count: GroceryItemCountAggregateOutputType | null
+    _avg: GroceryItemAvgAggregateOutputType | null
+    _sum: GroceryItemSumAggregateOutputType | null
+    _min: GroceryItemMinAggregateOutputType | null
+    _max: GroceryItemMaxAggregateOutputType | null
+  }
+
+  export type GroceryItemAvgAggregateOutputType = {
+    id: number | null
+    listId: number | null
+  }
+
+  export type GroceryItemSumAggregateOutputType = {
+    id: number | null
+    listId: number | null
+  }
+
+  export type GroceryItemMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    brand: string | null
+    unit: string | null
+    price: string | null
+    listId: number | null
+    store: string | null
+  }
+
+  export type GroceryItemMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    brand: string | null
+    unit: string | null
+    price: string | null
+    listId: number | null
+    store: string | null
+  }
+
+  export type GroceryItemCountAggregateOutputType = {
+    id: number
+    name: number
+    brand: number
+    unit: number
+    price: number
+    listId: number
+    store: number
+    _all: number
+  }
+
+
+  export type GroceryItemAvgAggregateInputType = {
+    id?: true
+    listId?: true
+  }
+
+  export type GroceryItemSumAggregateInputType = {
+    id?: true
+    listId?: true
+  }
+
+  export type GroceryItemMinAggregateInputType = {
+    id?: true
+    name?: true
+    brand?: true
+    unit?: true
+    price?: true
+    listId?: true
+    store?: true
+  }
+
+  export type GroceryItemMaxAggregateInputType = {
+    id?: true
+    name?: true
+    brand?: true
+    unit?: true
+    price?: true
+    listId?: true
+    store?: true
+  }
+
+  export type GroceryItemCountAggregateInputType = {
+    id?: true
+    name?: true
+    brand?: true
+    unit?: true
+    price?: true
+    listId?: true
+    store?: true
+    _all?: true
+  }
+
+  export type GroceryItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroceryItem to aggregate.
+     */
+    where?: GroceryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroceryItems to fetch.
+     */
+    orderBy?: GroceryItemOrderByWithRelationInput | GroceryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroceryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroceryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroceryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GroceryItems
+    **/
+    _count?: true | GroceryItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GroceryItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GroceryItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroceryItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroceryItemMaxAggregateInputType
+  }
+
+  export type GetGroceryItemAggregateType<T extends GroceryItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroceryItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroceryItem[P]>
+      : GetScalarType<T[P], AggregateGroceryItem[P]>
+  }
+
+
+
+
+  export type GroceryItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroceryItemWhereInput
+    orderBy?: GroceryItemOrderByWithAggregationInput | GroceryItemOrderByWithAggregationInput[]
+    by: GroceryItemScalarFieldEnum[] | GroceryItemScalarFieldEnum
+    having?: GroceryItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroceryItemCountAggregateInputType | true
+    _avg?: GroceryItemAvgAggregateInputType
+    _sum?: GroceryItemSumAggregateInputType
+    _min?: GroceryItemMinAggregateInputType
+    _max?: GroceryItemMaxAggregateInputType
+  }
+
+  export type GroceryItemGroupByOutputType = {
+    id: number
+    name: string
+    brand: string | null
+    unit: string
+    price: string
+    listId: number | null
+    store: string
+    _count: GroceryItemCountAggregateOutputType | null
+    _avg: GroceryItemAvgAggregateOutputType | null
+    _sum: GroceryItemSumAggregateOutputType | null
+    _min: GroceryItemMinAggregateOutputType | null
+    _max: GroceryItemMaxAggregateOutputType | null
+  }
+
+  type GetGroceryItemGroupByPayload<T extends GroceryItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroceryItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroceryItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroceryItemGroupByOutputType[P]>
+            : GetScalarType<T[P], GroceryItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroceryItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    brand?: boolean
+    unit?: boolean
+    price?: boolean
+    listId?: boolean
+    store?: boolean
+    list?: boolean | GroceryItem$listArgs<ExtArgs>
+  }, ExtArgs["result"]["groceryItem"]>
+
+  export type GroceryItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    brand?: boolean
+    unit?: boolean
+    price?: boolean
+    listId?: boolean
+    store?: boolean
+    list?: boolean | GroceryItem$listArgs<ExtArgs>
+  }, ExtArgs["result"]["groceryItem"]>
+
+  export type GroceryItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    brand?: boolean
+    unit?: boolean
+    price?: boolean
+    listId?: boolean
+    store?: boolean
+    list?: boolean | GroceryItem$listArgs<ExtArgs>
+  }, ExtArgs["result"]["groceryItem"]>
+
+  export type GroceryItemSelectScalar = {
+    id?: boolean
+    name?: boolean
+    brand?: boolean
+    unit?: boolean
+    price?: boolean
+    listId?: boolean
+    store?: boolean
+  }
+
+  export type GroceryItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "brand" | "unit" | "price" | "listId" | "store", ExtArgs["result"]["groceryItem"]>
+  export type GroceryItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    list?: boolean | GroceryItem$listArgs<ExtArgs>
+  }
+  export type GroceryItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    list?: boolean | GroceryItem$listArgs<ExtArgs>
+  }
+  export type GroceryItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    list?: boolean | GroceryItem$listArgs<ExtArgs>
+  }
+
+  export type $GroceryItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GroceryItem"
+    objects: {
+      list: Prisma.$ListPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      brand: string | null
+      unit: string
+      price: string
+      listId: number | null
+      store: string
+    }, ExtArgs["result"]["groceryItem"]>
+    composites: {}
+  }
+
+  type GroceryItemGetPayload<S extends boolean | null | undefined | GroceryItemDefaultArgs> = $Result.GetResult<Prisma.$GroceryItemPayload, S>
+
+  type GroceryItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GroceryItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GroceryItemCountAggregateInputType | true
+    }
+
+  export interface GroceryItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GroceryItem'], meta: { name: 'GroceryItem' } }
+    /**
+     * Find zero or one GroceryItem that matches the filter.
+     * @param {GroceryItemFindUniqueArgs} args - Arguments to find a GroceryItem
+     * @example
+     * // Get one GroceryItem
+     * const groceryItem = await prisma.groceryItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroceryItemFindUniqueArgs>(args: SelectSubset<T, GroceryItemFindUniqueArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GroceryItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GroceryItemFindUniqueOrThrowArgs} args - Arguments to find a GroceryItem
+     * @example
+     * // Get one GroceryItem
+     * const groceryItem = await prisma.groceryItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroceryItemFindUniqueOrThrowArgs>(args: SelectSubset<T, GroceryItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroceryItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroceryItemFindFirstArgs} args - Arguments to find a GroceryItem
+     * @example
+     * // Get one GroceryItem
+     * const groceryItem = await prisma.groceryItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroceryItemFindFirstArgs>(args?: SelectSubset<T, GroceryItemFindFirstArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroceryItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroceryItemFindFirstOrThrowArgs} args - Arguments to find a GroceryItem
+     * @example
+     * // Get one GroceryItem
+     * const groceryItem = await prisma.groceryItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroceryItemFindFirstOrThrowArgs>(args?: SelectSubset<T, GroceryItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GroceryItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroceryItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GroceryItems
+     * const groceryItems = await prisma.groceryItem.findMany()
+     * 
+     * // Get first 10 GroceryItems
+     * const groceryItems = await prisma.groceryItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groceryItemWithIdOnly = await prisma.groceryItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GroceryItemFindManyArgs>(args?: SelectSubset<T, GroceryItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GroceryItem.
+     * @param {GroceryItemCreateArgs} args - Arguments to create a GroceryItem.
+     * @example
+     * // Create one GroceryItem
+     * const GroceryItem = await prisma.groceryItem.create({
+     *   data: {
+     *     // ... data to create a GroceryItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroceryItemCreateArgs>(args: SelectSubset<T, GroceryItemCreateArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GroceryItems.
+     * @param {GroceryItemCreateManyArgs} args - Arguments to create many GroceryItems.
+     * @example
+     * // Create many GroceryItems
+     * const groceryItem = await prisma.groceryItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroceryItemCreateManyArgs>(args?: SelectSubset<T, GroceryItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GroceryItems and returns the data saved in the database.
+     * @param {GroceryItemCreateManyAndReturnArgs} args - Arguments to create many GroceryItems.
+     * @example
+     * // Create many GroceryItems
+     * const groceryItem = await prisma.groceryItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GroceryItems and only return the `id`
+     * const groceryItemWithIdOnly = await prisma.groceryItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroceryItemCreateManyAndReturnArgs>(args?: SelectSubset<T, GroceryItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GroceryItem.
+     * @param {GroceryItemDeleteArgs} args - Arguments to delete one GroceryItem.
+     * @example
+     * // Delete one GroceryItem
+     * const GroceryItem = await prisma.groceryItem.delete({
+     *   where: {
+     *     // ... filter to delete one GroceryItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroceryItemDeleteArgs>(args: SelectSubset<T, GroceryItemDeleteArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GroceryItem.
+     * @param {GroceryItemUpdateArgs} args - Arguments to update one GroceryItem.
+     * @example
+     * // Update one GroceryItem
+     * const groceryItem = await prisma.groceryItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroceryItemUpdateArgs>(args: SelectSubset<T, GroceryItemUpdateArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GroceryItems.
+     * @param {GroceryItemDeleteManyArgs} args - Arguments to filter GroceryItems to delete.
+     * @example
+     * // Delete a few GroceryItems
+     * const { count } = await prisma.groceryItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroceryItemDeleteManyArgs>(args?: SelectSubset<T, GroceryItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroceryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroceryItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GroceryItems
+     * const groceryItem = await prisma.groceryItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroceryItemUpdateManyArgs>(args: SelectSubset<T, GroceryItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroceryItems and returns the data updated in the database.
+     * @param {GroceryItemUpdateManyAndReturnArgs} args - Arguments to update many GroceryItems.
+     * @example
+     * // Update many GroceryItems
+     * const groceryItem = await prisma.groceryItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GroceryItems and only return the `id`
+     * const groceryItemWithIdOnly = await prisma.groceryItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GroceryItemUpdateManyAndReturnArgs>(args: SelectSubset<T, GroceryItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GroceryItem.
+     * @param {GroceryItemUpsertArgs} args - Arguments to update or create a GroceryItem.
+     * @example
+     * // Update or create a GroceryItem
+     * const groceryItem = await prisma.groceryItem.upsert({
+     *   create: {
+     *     // ... data to create a GroceryItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GroceryItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroceryItemUpsertArgs>(args: SelectSubset<T, GroceryItemUpsertArgs<ExtArgs>>): Prisma__GroceryItemClient<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GroceryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroceryItemCountArgs} args - Arguments to filter GroceryItems to count.
+     * @example
+     * // Count the number of GroceryItems
+     * const count = await prisma.groceryItem.count({
+     *   where: {
+     *     // ... the filter for the GroceryItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroceryItemCountArgs>(
+      args?: Subset<T, GroceryItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroceryItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GroceryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroceryItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroceryItemAggregateArgs>(args: Subset<T, GroceryItemAggregateArgs>): Prisma.PrismaPromise<GetGroceryItemAggregateType<T>>
+
+    /**
+     * Group by GroceryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroceryItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroceryItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroceryItemGroupByArgs['orderBy'] }
+        : { orderBy?: GroceryItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroceryItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroceryItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GroceryItem model
+   */
+  readonly fields: GroceryItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GroceryItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroceryItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    list<T extends GroceryItem$listArgs<ExtArgs> = {}>(args?: Subset<T, GroceryItem$listArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GroceryItem model
+   */
+  interface GroceryItemFieldRefs {
+    readonly id: FieldRef<"GroceryItem", 'Int'>
+    readonly name: FieldRef<"GroceryItem", 'String'>
+    readonly brand: FieldRef<"GroceryItem", 'String'>
+    readonly unit: FieldRef<"GroceryItem", 'String'>
+    readonly price: FieldRef<"GroceryItem", 'String'>
+    readonly listId: FieldRef<"GroceryItem", 'Int'>
+    readonly store: FieldRef<"GroceryItem", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GroceryItem findUnique
+   */
+  export type GroceryItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which GroceryItem to fetch.
+     */
+    where: GroceryItemWhereUniqueInput
+  }
+
+  /**
+   * GroceryItem findUniqueOrThrow
+   */
+  export type GroceryItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which GroceryItem to fetch.
+     */
+    where: GroceryItemWhereUniqueInput
+  }
+
+  /**
+   * GroceryItem findFirst
+   */
+  export type GroceryItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which GroceryItem to fetch.
+     */
+    where?: GroceryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroceryItems to fetch.
+     */
+    orderBy?: GroceryItemOrderByWithRelationInput | GroceryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroceryItems.
+     */
+    cursor?: GroceryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroceryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroceryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroceryItems.
+     */
+    distinct?: GroceryItemScalarFieldEnum | GroceryItemScalarFieldEnum[]
+  }
+
+  /**
+   * GroceryItem findFirstOrThrow
+   */
+  export type GroceryItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which GroceryItem to fetch.
+     */
+    where?: GroceryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroceryItems to fetch.
+     */
+    orderBy?: GroceryItemOrderByWithRelationInput | GroceryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroceryItems.
+     */
+    cursor?: GroceryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroceryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroceryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroceryItems.
+     */
+    distinct?: GroceryItemScalarFieldEnum | GroceryItemScalarFieldEnum[]
+  }
+
+  /**
+   * GroceryItem findMany
+   */
+  export type GroceryItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which GroceryItems to fetch.
+     */
+    where?: GroceryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroceryItems to fetch.
+     */
+    orderBy?: GroceryItemOrderByWithRelationInput | GroceryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GroceryItems.
+     */
+    cursor?: GroceryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroceryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroceryItems.
+     */
+    skip?: number
+    distinct?: GroceryItemScalarFieldEnum | GroceryItemScalarFieldEnum[]
+  }
+
+  /**
+   * GroceryItem create
+   */
+  export type GroceryItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GroceryItem.
+     */
+    data: XOR<GroceryItemCreateInput, GroceryItemUncheckedCreateInput>
+  }
+
+  /**
+   * GroceryItem createMany
+   */
+  export type GroceryItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GroceryItems.
+     */
+    data: GroceryItemCreateManyInput | GroceryItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroceryItem createManyAndReturn
+   */
+  export type GroceryItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many GroceryItems.
+     */
+    data: GroceryItemCreateManyInput | GroceryItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GroceryItem update
+   */
+  export type GroceryItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GroceryItem.
+     */
+    data: XOR<GroceryItemUpdateInput, GroceryItemUncheckedUpdateInput>
+    /**
+     * Choose, which GroceryItem to update.
+     */
+    where: GroceryItemWhereUniqueInput
+  }
+
+  /**
+   * GroceryItem updateMany
+   */
+  export type GroceryItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GroceryItems.
+     */
+    data: XOR<GroceryItemUpdateManyMutationInput, GroceryItemUncheckedUpdateManyInput>
+    /**
+     * Filter which GroceryItems to update
+     */
+    where?: GroceryItemWhereInput
+    /**
+     * Limit how many GroceryItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroceryItem updateManyAndReturn
+   */
+  export type GroceryItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * The data used to update GroceryItems.
+     */
+    data: XOR<GroceryItemUpdateManyMutationInput, GroceryItemUncheckedUpdateManyInput>
+    /**
+     * Filter which GroceryItems to update
+     */
+    where?: GroceryItemWhereInput
+    /**
+     * Limit how many GroceryItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GroceryItem upsert
+   */
+  export type GroceryItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GroceryItem to update in case it exists.
+     */
+    where: GroceryItemWhereUniqueInput
+    /**
+     * In case the GroceryItem found by the `where` argument doesn't exist, create a new GroceryItem with this data.
+     */
+    create: XOR<GroceryItemCreateInput, GroceryItemUncheckedCreateInput>
+    /**
+     * In case the GroceryItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroceryItemUpdateInput, GroceryItemUncheckedUpdateInput>
+  }
+
+  /**
+   * GroceryItem delete
+   */
+  export type GroceryItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+    /**
+     * Filter which GroceryItem to delete.
+     */
+    where: GroceryItemWhereUniqueInput
+  }
+
+  /**
+   * GroceryItem deleteMany
+   */
+  export type GroceryItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroceryItems to delete
+     */
+    where?: GroceryItemWhereInput
+    /**
+     * Limit how many GroceryItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroceryItem.list
+   */
+  export type GroceryItem$listArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the List
+     */
+    select?: ListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the List
+     */
+    omit?: ListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListInclude<ExtArgs> | null
+    where?: ListWhereInput
+  }
+
+  /**
+   * GroceryItem without action
+   */
+  export type GroceryItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroceryItem
+     */
+    select?: GroceryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroceryItem
+     */
+    omit?: GroceryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroceryItemInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model Item
@@ -1004,12 +2236,10 @@ export namespace Prisma {
 
   export type ItemAvgAggregateOutputType = {
     id: number | null
-    listId: number | null
   }
 
   export type ItemSumAggregateOutputType = {
     id: number | null
-    listId: number | null
   }
 
   export type ItemMinAggregateOutputType = {
@@ -1018,7 +2248,6 @@ export namespace Prisma {
     name: string | null
     expirationDate: Date | null
     userId: string | null
-    listId: number | null
   }
 
   export type ItemMaxAggregateOutputType = {
@@ -1027,7 +2256,6 @@ export namespace Prisma {
     name: string | null
     expirationDate: Date | null
     userId: string | null
-    listId: number | null
   }
 
   export type ItemCountAggregateOutputType = {
@@ -1036,19 +2264,16 @@ export namespace Prisma {
     name: number
     expirationDate: number
     userId: number
-    listId: number
     _all: number
   }
 
 
   export type ItemAvgAggregateInputType = {
     id?: true
-    listId?: true
   }
 
   export type ItemSumAggregateInputType = {
     id?: true
-    listId?: true
   }
 
   export type ItemMinAggregateInputType = {
@@ -1057,7 +2282,6 @@ export namespace Prisma {
     name?: true
     expirationDate?: true
     userId?: true
-    listId?: true
   }
 
   export type ItemMaxAggregateInputType = {
@@ -1066,7 +2290,6 @@ export namespace Prisma {
     name?: true
     expirationDate?: true
     userId?: true
-    listId?: true
   }
 
   export type ItemCountAggregateInputType = {
@@ -1075,7 +2298,6 @@ export namespace Prisma {
     name?: true
     expirationDate?: true
     userId?: true
-    listId?: true
     _all?: true
   }
 
@@ -1171,7 +2393,6 @@ export namespace Prisma {
     name: string
     expirationDate: Date | null
     userId: string
-    listId: number | null
     _count: ItemCountAggregateOutputType | null
     _avg: ItemAvgAggregateOutputType | null
     _sum: ItemSumAggregateOutputType | null
@@ -1199,8 +2420,6 @@ export namespace Prisma {
     name?: boolean
     expirationDate?: boolean
     userId?: boolean
-    listId?: boolean
-    list?: boolean | Item$listArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
   export type ItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1209,8 +2428,6 @@ export namespace Prisma {
     name?: boolean
     expirationDate?: boolean
     userId?: boolean
-    listId?: boolean
-    list?: boolean | Item$listArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
   export type ItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1219,8 +2436,6 @@ export namespace Prisma {
     name?: boolean
     expirationDate?: boolean
     userId?: boolean
-    listId?: boolean
-    list?: boolean | Item$listArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
   export type ItemSelectScalar = {
@@ -1229,32 +2444,19 @@ export namespace Prisma {
     name?: boolean
     expirationDate?: boolean
     userId?: boolean
-    listId?: boolean
   }
 
-  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "expirationDate" | "userId" | "listId", ExtArgs["result"]["item"]>
-  export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    list?: boolean | Item$listArgs<ExtArgs>
-  }
-  export type ItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    list?: boolean | Item$listArgs<ExtArgs>
-  }
-  export type ItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    list?: boolean | Item$listArgs<ExtArgs>
-  }
+  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "expirationDate" | "userId", ExtArgs["result"]["item"]>
 
   export type $ItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Item"
-    objects: {
-      list: Prisma.$ListPayload<ExtArgs> | null
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
       code: string | null
       name: string
       expirationDate: Date | null
       userId: string
-      listId: number | null
     }, ExtArgs["result"]["item"]>
     composites: {}
   }
@@ -1649,7 +2851,6 @@ export namespace Prisma {
    */
   export interface Prisma__ItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    list<T extends Item$listArgs<ExtArgs> = {}>(args?: Subset<T, Item$listArgs<ExtArgs>>): Prisma__ListClient<$Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1684,7 +2885,6 @@ export namespace Prisma {
     readonly name: FieldRef<"Item", 'String'>
     readonly expirationDate: FieldRef<"Item", 'DateTime'>
     readonly userId: FieldRef<"Item", 'String'>
-    readonly listId: FieldRef<"Item", 'Int'>
   }
     
 
@@ -1701,10 +2901,6 @@ export namespace Prisma {
      * Omit specific fields from the Item
      */
     omit?: ItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
     /**
      * Filter, which Item to fetch.
      */
@@ -1724,10 +2920,6 @@ export namespace Prisma {
      */
     omit?: ItemOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
-    /**
      * Filter, which Item to fetch.
      */
     where: ItemWhereUniqueInput
@@ -1745,10 +2937,6 @@ export namespace Prisma {
      * Omit specific fields from the Item
      */
     omit?: ItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
     /**
      * Filter, which Item to fetch.
      */
@@ -1798,10 +2986,6 @@ export namespace Prisma {
      */
     omit?: ItemOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
-    /**
      * Filter, which Item to fetch.
      */
     where?: ItemWhereInput
@@ -1850,10 +3034,6 @@ export namespace Prisma {
      */
     omit?: ItemOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
-    /**
      * Filter, which Items to fetch.
      */
     where?: ItemWhereInput
@@ -1897,10 +3077,6 @@ export namespace Prisma {
      */
     omit?: ItemOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
-    /**
      * The data needed to create a Item.
      */
     data: XOR<ItemCreateInput, ItemUncheckedCreateInput>
@@ -1934,10 +3110,6 @@ export namespace Prisma {
      */
     data: ItemCreateManyInput | ItemCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -1952,10 +3124,6 @@ export namespace Prisma {
      * Omit specific fields from the Item
      */
     omit?: ItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
     /**
      * The data needed to update a Item.
      */
@@ -2008,10 +3176,6 @@ export namespace Prisma {
      * Limit how many Items to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2026,10 +3190,6 @@ export namespace Prisma {
      * Omit specific fields from the Item
      */
     omit?: ItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
     /**
      * The filter to search for the Item to update in case it exists.
      */
@@ -2057,10 +3217,6 @@ export namespace Prisma {
      */
     omit?: ItemOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
-    /**
      * Filter which Item to delete.
      */
     where: ItemWhereUniqueInput
@@ -2081,25 +3237,6 @@ export namespace Prisma {
   }
 
   /**
-   * Item.list
-   */
-  export type Item$listArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the List
-     */
-    select?: ListSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the List
-     */
-    omit?: ListOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ListInclude<ExtArgs> | null
-    where?: ListWhereInput
-  }
-
-  /**
    * Item without action
    */
   export type ItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2111,10 +3248,6 @@ export namespace Prisma {
      * Omit specific fields from the Item
      */
     omit?: ItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
   }
 
 
@@ -2333,7 +3466,7 @@ export namespace Prisma {
   export type $ListPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "List"
     objects: {
-      items: Prisma.$ItemPayload<ExtArgs>[]
+      items: Prisma.$GroceryItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       userId: string
@@ -2733,7 +3866,7 @@ export namespace Prisma {
    */
   export interface Prisma__ListClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    items<T extends List$itemsArgs<ExtArgs> = {}>(args?: Subset<T, List$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    items<T extends List$itemsArgs<ExtArgs> = {}>(args?: Subset<T, List$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroceryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3158,23 +4291,23 @@ export namespace Prisma {
    */
   export type List$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Item
+     * Select specific fields to fetch from the GroceryItem
      */
-    select?: ItemSelect<ExtArgs> | null
+    select?: GroceryItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Item
+     * Omit specific fields from the GroceryItem
      */
-    omit?: ItemOmit<ExtArgs> | null
+    omit?: GroceryItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ItemInclude<ExtArgs> | null
-    where?: ItemWhereInput
-    orderBy?: ItemOrderByWithRelationInput | ItemOrderByWithRelationInput[]
-    cursor?: ItemWhereUniqueInput
+    include?: GroceryItemInclude<ExtArgs> | null
+    where?: GroceryItemWhereInput
+    orderBy?: GroceryItemOrderByWithRelationInput | GroceryItemOrderByWithRelationInput[]
+    cursor?: GroceryItemWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ItemScalarFieldEnum | ItemScalarFieldEnum[]
+    distinct?: GroceryItemScalarFieldEnum | GroceryItemScalarFieldEnum[]
   }
 
   /**
@@ -3210,13 +4343,25 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const GroceryItemScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    brand: 'brand',
+    unit: 'unit',
+    price: 'price',
+    listId: 'listId',
+    store: 'store'
+  };
+
+  export type GroceryItemScalarFieldEnum = (typeof GroceryItemScalarFieldEnum)[keyof typeof GroceryItemScalarFieldEnum]
+
+
   export const ItemScalarFieldEnum: {
     id: 'id',
     code: 'code',
     name: 'name',
     expirationDate: 'expirationDate',
-    userId: 'userId',
-    listId: 'listId'
+    userId: 'userId'
   };
 
   export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
@@ -3319,6 +4464,73 @@ export namespace Prisma {
    */
 
 
+  export type GroceryItemWhereInput = {
+    AND?: GroceryItemWhereInput | GroceryItemWhereInput[]
+    OR?: GroceryItemWhereInput[]
+    NOT?: GroceryItemWhereInput | GroceryItemWhereInput[]
+    id?: IntFilter<"GroceryItem"> | number
+    name?: StringFilter<"GroceryItem"> | string
+    brand?: StringNullableFilter<"GroceryItem"> | string | null
+    unit?: StringFilter<"GroceryItem"> | string
+    price?: StringFilter<"GroceryItem"> | string
+    listId?: IntNullableFilter<"GroceryItem"> | number | null
+    store?: StringFilter<"GroceryItem"> | string
+    list?: XOR<ListNullableScalarRelationFilter, ListWhereInput> | null
+  }
+
+  export type GroceryItemOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    brand?: SortOrderInput | SortOrder
+    unit?: SortOrder
+    price?: SortOrder
+    listId?: SortOrderInput | SortOrder
+    store?: SortOrder
+    list?: ListOrderByWithRelationInput
+  }
+
+  export type GroceryItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: GroceryItemWhereInput | GroceryItemWhereInput[]
+    OR?: GroceryItemWhereInput[]
+    NOT?: GroceryItemWhereInput | GroceryItemWhereInput[]
+    name?: StringFilter<"GroceryItem"> | string
+    brand?: StringNullableFilter<"GroceryItem"> | string | null
+    unit?: StringFilter<"GroceryItem"> | string
+    price?: StringFilter<"GroceryItem"> | string
+    listId?: IntNullableFilter<"GroceryItem"> | number | null
+    store?: StringFilter<"GroceryItem"> | string
+    list?: XOR<ListNullableScalarRelationFilter, ListWhereInput> | null
+  }, "id">
+
+  export type GroceryItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    brand?: SortOrderInput | SortOrder
+    unit?: SortOrder
+    price?: SortOrder
+    listId?: SortOrderInput | SortOrder
+    store?: SortOrder
+    _count?: GroceryItemCountOrderByAggregateInput
+    _avg?: GroceryItemAvgOrderByAggregateInput
+    _max?: GroceryItemMaxOrderByAggregateInput
+    _min?: GroceryItemMinOrderByAggregateInput
+    _sum?: GroceryItemSumOrderByAggregateInput
+  }
+
+  export type GroceryItemScalarWhereWithAggregatesInput = {
+    AND?: GroceryItemScalarWhereWithAggregatesInput | GroceryItemScalarWhereWithAggregatesInput[]
+    OR?: GroceryItemScalarWhereWithAggregatesInput[]
+    NOT?: GroceryItemScalarWhereWithAggregatesInput | GroceryItemScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GroceryItem"> | number
+    name?: StringWithAggregatesFilter<"GroceryItem"> | string
+    brand?: StringNullableWithAggregatesFilter<"GroceryItem"> | string | null
+    unit?: StringWithAggregatesFilter<"GroceryItem"> | string
+    price?: StringWithAggregatesFilter<"GroceryItem"> | string
+    listId?: IntNullableWithAggregatesFilter<"GroceryItem"> | number | null
+    store?: StringWithAggregatesFilter<"GroceryItem"> | string
+  }
+
   export type ItemWhereInput = {
     AND?: ItemWhereInput | ItemWhereInput[]
     OR?: ItemWhereInput[]
@@ -3328,8 +4540,6 @@ export namespace Prisma {
     name?: StringFilter<"Item"> | string
     expirationDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     userId?: StringFilter<"Item"> | string
-    listId?: IntNullableFilter<"Item"> | number | null
-    list?: XOR<ListNullableScalarRelationFilter, ListWhereInput> | null
   }
 
   export type ItemOrderByWithRelationInput = {
@@ -3338,8 +4548,6 @@ export namespace Prisma {
     name?: SortOrder
     expirationDate?: SortOrderInput | SortOrder
     userId?: SortOrder
-    listId?: SortOrderInput | SortOrder
-    list?: ListOrderByWithRelationInput
   }
 
   export type ItemWhereUniqueInput = Prisma.AtLeast<{
@@ -3351,8 +4559,6 @@ export namespace Prisma {
     name?: StringFilter<"Item"> | string
     expirationDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     userId?: StringFilter<"Item"> | string
-    listId?: IntNullableFilter<"Item"> | number | null
-    list?: XOR<ListNullableScalarRelationFilter, ListWhereInput> | null
   }, "id">
 
   export type ItemOrderByWithAggregationInput = {
@@ -3361,7 +4567,6 @@ export namespace Prisma {
     name?: SortOrder
     expirationDate?: SortOrderInput | SortOrder
     userId?: SortOrder
-    listId?: SortOrderInput | SortOrder
     _count?: ItemCountOrderByAggregateInput
     _avg?: ItemAvgOrderByAggregateInput
     _max?: ItemMaxOrderByAggregateInput
@@ -3378,7 +4583,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Item"> | string
     expirationDate?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     userId?: StringWithAggregatesFilter<"Item"> | string
-    listId?: IntNullableWithAggregatesFilter<"Item"> | number | null
   }
 
   export type ListWhereInput = {
@@ -3388,14 +4592,14 @@ export namespace Prisma {
     userId?: StringFilter<"List"> | string
     id?: IntFilter<"List"> | number
     name?: StringFilter<"List"> | string
-    items?: ItemListRelationFilter
+    items?: GroceryItemListRelationFilter
   }
 
   export type ListOrderByWithRelationInput = {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
-    items?: ItemOrderByRelationAggregateInput
+    items?: GroceryItemOrderByRelationAggregateInput
   }
 
   export type ListWhereUniqueInput = Prisma.AtLeast<{
@@ -3405,7 +4609,7 @@ export namespace Prisma {
     NOT?: ListWhereInput | ListWhereInput[]
     userId?: StringFilter<"List"> | string
     name?: StringFilter<"List"> | string
-    items?: ItemListRelationFilter
+    items?: GroceryItemListRelationFilter
   }, "id">
 
   export type ListOrderByWithAggregationInput = {
@@ -3428,12 +4632,80 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"List"> | string
   }
 
+  export type GroceryItemCreateInput = {
+    id: number
+    name: string
+    brand?: string | null
+    unit: string
+    price: string
+    store: string
+    list?: ListCreateNestedOneWithoutItemsInput
+  }
+
+  export type GroceryItemUncheckedCreateInput = {
+    id: number
+    name: string
+    brand?: string | null
+    unit: string
+    price: string
+    listId?: number | null
+    store: string
+  }
+
+  export type GroceryItemUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    store?: StringFieldUpdateOperationsInput | string
+    list?: ListUpdateOneWithoutItemsNestedInput
+  }
+
+  export type GroceryItemUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    listId?: NullableIntFieldUpdateOperationsInput | number | null
+    store?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GroceryItemCreateManyInput = {
+    id: number
+    name: string
+    brand?: string | null
+    unit: string
+    price: string
+    listId?: number | null
+    store: string
+  }
+
+  export type GroceryItemUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    store?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GroceryItemUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    listId?: NullableIntFieldUpdateOperationsInput | number | null
+    store?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ItemCreateInput = {
     code?: string | null
     name: string
     expirationDate?: Date | string | null
     userId: string
-    list?: ListCreateNestedOneWithoutItemsInput
   }
 
   export type ItemUncheckedCreateInput = {
@@ -3442,7 +4714,6 @@ export namespace Prisma {
     name: string
     expirationDate?: Date | string | null
     userId: string
-    listId?: number | null
   }
 
   export type ItemUpdateInput = {
@@ -3450,7 +4721,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    list?: ListUpdateOneWithoutItemsNestedInput
   }
 
   export type ItemUncheckedUpdateInput = {
@@ -3459,7 +4729,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    listId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ItemCreateManyInput = {
@@ -3468,7 +4737,6 @@ export namespace Prisma {
     name: string
     expirationDate?: Date | string | null
     userId: string
-    listId?: number | null
   }
 
   export type ItemUpdateManyMutationInput = {
@@ -3484,33 +4752,32 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    listId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ListCreateInput = {
     userId: string
     name: string
-    items?: ItemCreateNestedManyWithoutListInput
+    items?: GroceryItemCreateNestedManyWithoutListInput
   }
 
   export type ListUncheckedCreateInput = {
     userId: string
     id?: number
     name: string
-    items?: ItemUncheckedCreateNestedManyWithoutListInput
+    items?: GroceryItemUncheckedCreateNestedManyWithoutListInput
   }
 
   export type ListUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    items?: ItemUpdateManyWithoutListNestedInput
+    items?: GroceryItemUpdateManyWithoutListNestedInput
   }
 
   export type ListUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    items?: ItemUncheckedUpdateManyWithoutListNestedInput
+    items?: GroceryItemUncheckedUpdateManyWithoutListNestedInput
   }
 
   export type ListCreateManyInput = {
@@ -3541,21 +4808,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3571,15 +4823,19 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -3603,39 +4859,42 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type ItemCountOrderByAggregateInput = {
+  export type GroceryItemCountOrderByAggregateInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    expirationDate?: SortOrder
-    userId?: SortOrder
+    brand?: SortOrder
+    unit?: SortOrder
+    price?: SortOrder
     listId?: SortOrder
+    store?: SortOrder
   }
 
-  export type ItemAvgOrderByAggregateInput = {
+  export type GroceryItemAvgOrderByAggregateInput = {
     id?: SortOrder
     listId?: SortOrder
   }
 
-  export type ItemMaxOrderByAggregateInput = {
+  export type GroceryItemMaxOrderByAggregateInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    expirationDate?: SortOrder
-    userId?: SortOrder
+    brand?: SortOrder
+    unit?: SortOrder
+    price?: SortOrder
     listId?: SortOrder
+    store?: SortOrder
   }
 
-  export type ItemMinOrderByAggregateInput = {
+  export type GroceryItemMinOrderByAggregateInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    expirationDate?: SortOrder
-    userId?: SortOrder
+    brand?: SortOrder
+    unit?: SortOrder
+    price?: SortOrder
     listId?: SortOrder
+    store?: SortOrder
   }
 
-  export type ItemSumOrderByAggregateInput = {
+  export type GroceryItemSumOrderByAggregateInput = {
     id?: SortOrder
     listId?: SortOrder
   }
@@ -3656,24 +4915,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3692,18 +4933,22 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3722,13 +4967,70 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type ItemListRelationFilter = {
-    every?: ItemWhereInput
-    some?: ItemWhereInput
-    none?: ItemWhereInput
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type ItemOrderByRelationAggregateInput = {
+  export type ItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    expirationDate?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ItemAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    expirationDate?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    expirationDate?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ItemSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type GroceryItemListRelationFilter = {
+    every?: GroceryItemWhereInput
+    some?: GroceryItemWhereInput
+    none?: GroceryItemWhereInput
+  }
+
+  export type GroceryItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3764,16 +5066,20 @@ export namespace Prisma {
     connect?: ListWhereUniqueInput
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type ListUpdateOneWithoutItemsNestedInput = {
@@ -3786,14 +5092,6 @@ export namespace Prisma {
     update?: XOR<XOR<ListUpdateToOneWithWhereWithoutItemsInput, ListUpdateWithoutItemsInput>, ListUncheckedUpdateWithoutItemsInput>
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -3802,46 +5100,50 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type ItemCreateNestedManyWithoutListInput = {
-    create?: XOR<ItemCreateWithoutListInput, ItemUncheckedCreateWithoutListInput> | ItemCreateWithoutListInput[] | ItemUncheckedCreateWithoutListInput[]
-    connectOrCreate?: ItemCreateOrConnectWithoutListInput | ItemCreateOrConnectWithoutListInput[]
-    createMany?: ItemCreateManyListInputEnvelope
-    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
-  export type ItemUncheckedCreateNestedManyWithoutListInput = {
-    create?: XOR<ItemCreateWithoutListInput, ItemUncheckedCreateWithoutListInput> | ItemCreateWithoutListInput[] | ItemUncheckedCreateWithoutListInput[]
-    connectOrCreate?: ItemCreateOrConnectWithoutListInput | ItemCreateOrConnectWithoutListInput[]
-    createMany?: ItemCreateManyListInputEnvelope
-    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+  export type GroceryItemCreateNestedManyWithoutListInput = {
+    create?: XOR<GroceryItemCreateWithoutListInput, GroceryItemUncheckedCreateWithoutListInput> | GroceryItemCreateWithoutListInput[] | GroceryItemUncheckedCreateWithoutListInput[]
+    connectOrCreate?: GroceryItemCreateOrConnectWithoutListInput | GroceryItemCreateOrConnectWithoutListInput[]
+    createMany?: GroceryItemCreateManyListInputEnvelope
+    connect?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
   }
 
-  export type ItemUpdateManyWithoutListNestedInput = {
-    create?: XOR<ItemCreateWithoutListInput, ItemUncheckedCreateWithoutListInput> | ItemCreateWithoutListInput[] | ItemUncheckedCreateWithoutListInput[]
-    connectOrCreate?: ItemCreateOrConnectWithoutListInput | ItemCreateOrConnectWithoutListInput[]
-    upsert?: ItemUpsertWithWhereUniqueWithoutListInput | ItemUpsertWithWhereUniqueWithoutListInput[]
-    createMany?: ItemCreateManyListInputEnvelope
-    set?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    disconnect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    delete?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    update?: ItemUpdateWithWhereUniqueWithoutListInput | ItemUpdateWithWhereUniqueWithoutListInput[]
-    updateMany?: ItemUpdateManyWithWhereWithoutListInput | ItemUpdateManyWithWhereWithoutListInput[]
-    deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
+  export type GroceryItemUncheckedCreateNestedManyWithoutListInput = {
+    create?: XOR<GroceryItemCreateWithoutListInput, GroceryItemUncheckedCreateWithoutListInput> | GroceryItemCreateWithoutListInput[] | GroceryItemUncheckedCreateWithoutListInput[]
+    connectOrCreate?: GroceryItemCreateOrConnectWithoutListInput | GroceryItemCreateOrConnectWithoutListInput[]
+    createMany?: GroceryItemCreateManyListInputEnvelope
+    connect?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
   }
 
-  export type ItemUncheckedUpdateManyWithoutListNestedInput = {
-    create?: XOR<ItemCreateWithoutListInput, ItemUncheckedCreateWithoutListInput> | ItemCreateWithoutListInput[] | ItemUncheckedCreateWithoutListInput[]
-    connectOrCreate?: ItemCreateOrConnectWithoutListInput | ItemCreateOrConnectWithoutListInput[]
-    upsert?: ItemUpsertWithWhereUniqueWithoutListInput | ItemUpsertWithWhereUniqueWithoutListInput[]
-    createMany?: ItemCreateManyListInputEnvelope
-    set?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    disconnect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    delete?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
-    update?: ItemUpdateWithWhereUniqueWithoutListInput | ItemUpdateWithWhereUniqueWithoutListInput[]
-    updateMany?: ItemUpdateManyWithWhereWithoutListInput | ItemUpdateManyWithWhereWithoutListInput[]
-    deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
+  export type GroceryItemUpdateManyWithoutListNestedInput = {
+    create?: XOR<GroceryItemCreateWithoutListInput, GroceryItemUncheckedCreateWithoutListInput> | GroceryItemCreateWithoutListInput[] | GroceryItemUncheckedCreateWithoutListInput[]
+    connectOrCreate?: GroceryItemCreateOrConnectWithoutListInput | GroceryItemCreateOrConnectWithoutListInput[]
+    upsert?: GroceryItemUpsertWithWhereUniqueWithoutListInput | GroceryItemUpsertWithWhereUniqueWithoutListInput[]
+    createMany?: GroceryItemCreateManyListInputEnvelope
+    set?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    disconnect?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    delete?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    connect?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    update?: GroceryItemUpdateWithWhereUniqueWithoutListInput | GroceryItemUpdateWithWhereUniqueWithoutListInput[]
+    updateMany?: GroceryItemUpdateManyWithWhereWithoutListInput | GroceryItemUpdateManyWithWhereWithoutListInput[]
+    deleteMany?: GroceryItemScalarWhereInput | GroceryItemScalarWhereInput[]
+  }
+
+  export type GroceryItemUncheckedUpdateManyWithoutListNestedInput = {
+    create?: XOR<GroceryItemCreateWithoutListInput, GroceryItemUncheckedCreateWithoutListInput> | GroceryItemCreateWithoutListInput[] | GroceryItemUncheckedCreateWithoutListInput[]
+    connectOrCreate?: GroceryItemCreateOrConnectWithoutListInput | GroceryItemCreateOrConnectWithoutListInput[]
+    upsert?: GroceryItemUpsertWithWhereUniqueWithoutListInput | GroceryItemUpsertWithWhereUniqueWithoutListInput[]
+    createMany?: GroceryItemCreateManyListInputEnvelope
+    set?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    disconnect?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    delete?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    connect?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+    update?: GroceryItemUpdateWithWhereUniqueWithoutListInput | GroceryItemUpdateWithWhereUniqueWithoutListInput[]
+    updateMany?: GroceryItemUpdateManyWithWhereWithoutListInput | GroceryItemUpdateManyWithWhereWithoutListInput[]
+    deleteMany?: GroceryItemScalarWhereInput | GroceryItemScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3853,20 +5155,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3883,15 +5171,18 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -3932,23 +5223,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3966,18 +5240,21 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -4005,6 +5282,31 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ListCreateWithoutItemsInput = {
@@ -4045,88 +5347,97 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ItemCreateWithoutListInput = {
-    code?: string | null
+  export type GroceryItemCreateWithoutListInput = {
+    id: number
     name: string
-    expirationDate?: Date | string | null
-    userId: string
+    brand?: string | null
+    unit: string
+    price: string
+    store: string
   }
 
-  export type ItemUncheckedCreateWithoutListInput = {
-    id?: number
-    code?: string | null
+  export type GroceryItemUncheckedCreateWithoutListInput = {
+    id: number
     name: string
-    expirationDate?: Date | string | null
-    userId: string
+    brand?: string | null
+    unit: string
+    price: string
+    store: string
   }
 
-  export type ItemCreateOrConnectWithoutListInput = {
-    where: ItemWhereUniqueInput
-    create: XOR<ItemCreateWithoutListInput, ItemUncheckedCreateWithoutListInput>
+  export type GroceryItemCreateOrConnectWithoutListInput = {
+    where: GroceryItemWhereUniqueInput
+    create: XOR<GroceryItemCreateWithoutListInput, GroceryItemUncheckedCreateWithoutListInput>
   }
 
-  export type ItemCreateManyListInputEnvelope = {
-    data: ItemCreateManyListInput | ItemCreateManyListInput[]
+  export type GroceryItemCreateManyListInputEnvelope = {
+    data: GroceryItemCreateManyListInput | GroceryItemCreateManyListInput[]
     skipDuplicates?: boolean
   }
 
-  export type ItemUpsertWithWhereUniqueWithoutListInput = {
-    where: ItemWhereUniqueInput
-    update: XOR<ItemUpdateWithoutListInput, ItemUncheckedUpdateWithoutListInput>
-    create: XOR<ItemCreateWithoutListInput, ItemUncheckedCreateWithoutListInput>
+  export type GroceryItemUpsertWithWhereUniqueWithoutListInput = {
+    where: GroceryItemWhereUniqueInput
+    update: XOR<GroceryItemUpdateWithoutListInput, GroceryItemUncheckedUpdateWithoutListInput>
+    create: XOR<GroceryItemCreateWithoutListInput, GroceryItemUncheckedCreateWithoutListInput>
   }
 
-  export type ItemUpdateWithWhereUniqueWithoutListInput = {
-    where: ItemWhereUniqueInput
-    data: XOR<ItemUpdateWithoutListInput, ItemUncheckedUpdateWithoutListInput>
+  export type GroceryItemUpdateWithWhereUniqueWithoutListInput = {
+    where: GroceryItemWhereUniqueInput
+    data: XOR<GroceryItemUpdateWithoutListInput, GroceryItemUncheckedUpdateWithoutListInput>
   }
 
-  export type ItemUpdateManyWithWhereWithoutListInput = {
-    where: ItemScalarWhereInput
-    data: XOR<ItemUpdateManyMutationInput, ItemUncheckedUpdateManyWithoutListInput>
+  export type GroceryItemUpdateManyWithWhereWithoutListInput = {
+    where: GroceryItemScalarWhereInput
+    data: XOR<GroceryItemUpdateManyMutationInput, GroceryItemUncheckedUpdateManyWithoutListInput>
   }
 
-  export type ItemScalarWhereInput = {
-    AND?: ItemScalarWhereInput | ItemScalarWhereInput[]
-    OR?: ItemScalarWhereInput[]
-    NOT?: ItemScalarWhereInput | ItemScalarWhereInput[]
-    id?: IntFilter<"Item"> | number
-    code?: StringNullableFilter<"Item"> | string | null
-    name?: StringFilter<"Item"> | string
-    expirationDate?: DateTimeNullableFilter<"Item"> | Date | string | null
-    userId?: StringFilter<"Item"> | string
-    listId?: IntNullableFilter<"Item"> | number | null
+  export type GroceryItemScalarWhereInput = {
+    AND?: GroceryItemScalarWhereInput | GroceryItemScalarWhereInput[]
+    OR?: GroceryItemScalarWhereInput[]
+    NOT?: GroceryItemScalarWhereInput | GroceryItemScalarWhereInput[]
+    id?: IntFilter<"GroceryItem"> | number
+    name?: StringFilter<"GroceryItem"> | string
+    brand?: StringNullableFilter<"GroceryItem"> | string | null
+    unit?: StringFilter<"GroceryItem"> | string
+    price?: StringFilter<"GroceryItem"> | string
+    listId?: IntNullableFilter<"GroceryItem"> | number | null
+    store?: StringFilter<"GroceryItem"> | string
   }
 
-  export type ItemCreateManyListInput = {
-    id?: number
-    code?: string | null
+  export type GroceryItemCreateManyListInput = {
+    id: number
     name: string
-    expirationDate?: Date | string | null
-    userId: string
+    brand?: string | null
+    unit: string
+    price: string
+    store: string
   }
 
-  export type ItemUpdateWithoutListInput = {
-    code?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ItemUncheckedUpdateWithoutListInput = {
+  export type GroceryItemUpdateWithoutListInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userId?: StringFieldUpdateOperationsInput | string
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    store?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ItemUncheckedUpdateManyWithoutListInput = {
+  export type GroceryItemUncheckedUpdateWithoutListInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
-    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    userId?: StringFieldUpdateOperationsInput | string
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    store?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GroceryItemUncheckedUpdateManyWithoutListInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    store?: StringFieldUpdateOperationsInput | string
   }
 
 
