@@ -3427,7 +3427,7 @@ export namespace Prisma {
     userId: string
     id: number
     name: string
-    createdAt: Date | null
+    createdAt: Date
     _count: ListCountAggregateOutputType | null
     _avg: ListAvgAggregateOutputType | null
     _sum: ListSumAggregateOutputType | null
@@ -3496,7 +3496,7 @@ export namespace Prisma {
       userId: string
       id: number
       name: string
-      createdAt: Date | null
+      createdAt: Date
     }, ExtArgs["result"]["list"]>
     composites: {}
   }
@@ -4625,7 +4625,7 @@ export namespace Prisma {
     userId?: StringFilter<"List"> | string
     id?: IntFilter<"List"> | number
     name?: StringFilter<"List"> | string
-    createdAt?: DateTimeNullableFilter<"List"> | Date | string | null
+    createdAt?: DateTimeFilter<"List"> | Date | string
     items?: GroceryItemListRelationFilter
   }
 
@@ -4633,7 +4633,7 @@ export namespace Prisma {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
-    createdAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     items?: GroceryItemOrderByRelationAggregateInput
   }
 
@@ -4644,7 +4644,7 @@ export namespace Prisma {
     NOT?: ListWhereInput | ListWhereInput[]
     userId?: StringFilter<"List"> | string
     name?: StringFilter<"List"> | string
-    createdAt?: DateTimeNullableFilter<"List"> | Date | string | null
+    createdAt?: DateTimeFilter<"List"> | Date | string
     items?: GroceryItemListRelationFilter
   }, "id">
 
@@ -4652,7 +4652,7 @@ export namespace Prisma {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
-    createdAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     _count?: ListCountOrderByAggregateInput
     _avg?: ListAvgOrderByAggregateInput
     _max?: ListMaxOrderByAggregateInput
@@ -4667,7 +4667,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"List"> | string
     id?: IntWithAggregatesFilter<"List"> | number
     name?: StringWithAggregatesFilter<"List"> | string
-    createdAt?: DateTimeNullableWithAggregatesFilter<"List"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"List"> | Date | string
   }
 
   export type GroceryItemCreateInput = {
@@ -4799,7 +4799,7 @@ export namespace Prisma {
   export type ListCreateInput = {
     userId: string
     name: string
-    createdAt?: Date | string | null
+    createdAt?: Date | string
     items?: GroceryItemCreateNestedManyWithoutListInput
   }
 
@@ -4807,14 +4807,14 @@ export namespace Prisma {
     userId: string
     id?: number
     name: string
-    createdAt?: Date | string | null
+    createdAt?: Date | string
     items?: GroceryItemUncheckedCreateNestedManyWithoutListInput
   }
 
   export type ListUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: GroceryItemUpdateManyWithoutListNestedInput
   }
 
@@ -4822,7 +4822,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: GroceryItemUncheckedUpdateManyWithoutListNestedInput
   }
 
@@ -4830,20 +4830,20 @@ export namespace Prisma {
     userId: string
     id?: number
     name: string
-    createdAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type ListUpdateManyMutationInput = {
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ListUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5076,6 +5076,17 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type GroceryItemListRelationFilter = {
     every?: GroceryItemWhereInput
     some?: GroceryItemWhereInput
@@ -5113,6 +5124,20 @@ export namespace Prisma {
 
   export type ListSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type ListCreateNestedOneWithoutItemsInput = {
@@ -5171,6 +5196,10 @@ export namespace Prisma {
     connectOrCreate?: GroceryItemCreateOrConnectWithoutListInput | GroceryItemCreateOrConnectWithoutListInput[]
     createMany?: GroceryItemCreateManyListInputEnvelope
     connect?: GroceryItemWhereUniqueInput | GroceryItemWhereUniqueInput[]
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type GroceryItemUpdateManyWithoutListNestedInput = {
@@ -5364,17 +5393,42 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type ListCreateWithoutItemsInput = {
     userId: string
     name: string
-    createdAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type ListUncheckedCreateWithoutItemsInput = {
     userId: string
     id?: number
     name: string
-    createdAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type ListCreateOrConnectWithoutItemsInput = {
@@ -5396,14 +5450,14 @@ export namespace Prisma {
   export type ListUpdateWithoutItemsInput = {
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ListUncheckedUpdateWithoutItemsInput = {
     userId?: StringFieldUpdateOperationsInput | string
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GroceryItemCreateWithoutListInput = {

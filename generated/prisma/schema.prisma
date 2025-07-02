@@ -39,5 +39,5 @@ model List {
   id        Int           @id @default(autoincrement())
   name      String
   items     GroceryItem[]
-  createdAt DateTime?
+  createdAt DateTime      @default(now())
 }
