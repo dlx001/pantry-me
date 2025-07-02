@@ -44,18 +44,26 @@ router.post(
       return;
     }
     try {
-      const newList = await prisma.list.create({
-        data: {
-          name,
-          userId: clerkId,
-        },
-      });
-      for (const item of items) {
-        await prisma.groceryItem.create({
-          data: { ...item, listId: newList.id },
+      const result = await prisma.$transaction(async (tx) => {
+        // Create the list first
+        const newList = await tx.list.create({
+          data: {
+            name,
+            userId: clerkId,
+          },
         });
-      }
-      res.status(201).json(newList);
+
+        // Create all grocery items
+        for (const item of items) {
+          await tx.groceryItem.create({
+            data: { ...item, listId: newList.id },
+          });
+        }
+
+        return newList;
+      });
+
+      res.status(201).json(result);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server error" });

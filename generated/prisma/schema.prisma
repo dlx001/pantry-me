@@ -15,8 +15,7 @@ datasource db {
 }
 
 model GroceryItem {
-  id     Int     @unique
-  name   String
+  id     Int     @id @default(autoincrement())
   brand  String?
   unit   String
   price  String
