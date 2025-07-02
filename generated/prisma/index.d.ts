@@ -1105,6 +1105,7 @@ export namespace Prisma {
 
   export type GroceryItemMinAggregateOutputType = {
     id: number | null
+    img_url: string | null
     name: string | null
     brand: string | null
     unit: string | null
@@ -1115,6 +1116,7 @@ export namespace Prisma {
 
   export type GroceryItemMaxAggregateOutputType = {
     id: number | null
+    img_url: string | null
     name: string | null
     brand: string | null
     unit: string | null
@@ -1125,6 +1127,7 @@ export namespace Prisma {
 
   export type GroceryItemCountAggregateOutputType = {
     id: number
+    img_url: number
     name: number
     brand: number
     unit: number
@@ -1147,6 +1150,7 @@ export namespace Prisma {
 
   export type GroceryItemMinAggregateInputType = {
     id?: true
+    img_url?: true
     name?: true
     brand?: true
     unit?: true
@@ -1157,6 +1161,7 @@ export namespace Prisma {
 
   export type GroceryItemMaxAggregateInputType = {
     id?: true
+    img_url?: true
     name?: true
     brand?: true
     unit?: true
@@ -1167,6 +1172,7 @@ export namespace Prisma {
 
   export type GroceryItemCountAggregateInputType = {
     id?: true
+    img_url?: true
     name?: true
     brand?: true
     unit?: true
@@ -1264,6 +1270,7 @@ export namespace Prisma {
 
   export type GroceryItemGroupByOutputType = {
     id: number
+    img_url: string | null
     name: string
     brand: string | null
     unit: string
@@ -1293,6 +1300,7 @@ export namespace Prisma {
 
   export type GroceryItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    img_url?: boolean
     name?: boolean
     brand?: boolean
     unit?: boolean
@@ -1304,6 +1312,7 @@ export namespace Prisma {
 
   export type GroceryItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    img_url?: boolean
     name?: boolean
     brand?: boolean
     unit?: boolean
@@ -1315,6 +1324,7 @@ export namespace Prisma {
 
   export type GroceryItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    img_url?: boolean
     name?: boolean
     brand?: boolean
     unit?: boolean
@@ -1326,6 +1336,7 @@ export namespace Prisma {
 
   export type GroceryItemSelectScalar = {
     id?: boolean
+    img_url?: boolean
     name?: boolean
     brand?: boolean
     unit?: boolean
@@ -1334,7 +1345,7 @@ export namespace Prisma {
     store?: boolean
   }
 
-  export type GroceryItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "brand" | "unit" | "price" | "listId" | "store", ExtArgs["result"]["groceryItem"]>
+  export type GroceryItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "img_url" | "name" | "brand" | "unit" | "price" | "listId" | "store", ExtArgs["result"]["groceryItem"]>
   export type GroceryItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     list?: boolean | GroceryItem$listArgs<ExtArgs>
   }
@@ -1352,6 +1363,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      img_url: string | null
       name: string
       brand: string | null
       unit: string
@@ -1783,6 +1795,7 @@ export namespace Prisma {
    */
   interface GroceryItemFieldRefs {
     readonly id: FieldRef<"GroceryItem", 'Int'>
+    readonly img_url: FieldRef<"GroceryItem", 'String'>
     readonly name: FieldRef<"GroceryItem", 'String'>
     readonly brand: FieldRef<"GroceryItem", 'String'>
     readonly unit: FieldRef<"GroceryItem", 'String'>
@@ -3275,18 +3288,21 @@ export namespace Prisma {
     userId: string | null
     id: number | null
     name: string | null
+    createdAt: Date | null
   }
 
   export type ListMaxAggregateOutputType = {
     userId: string | null
     id: number | null
     name: string | null
+    createdAt: Date | null
   }
 
   export type ListCountAggregateOutputType = {
     userId: number
     id: number
     name: number
+    createdAt: number
     _all: number
   }
 
@@ -3303,18 +3319,21 @@ export namespace Prisma {
     userId?: true
     id?: true
     name?: true
+    createdAt?: true
   }
 
   export type ListMaxAggregateInputType = {
     userId?: true
     id?: true
     name?: true
+    createdAt?: true
   }
 
   export type ListCountAggregateInputType = {
     userId?: true
     id?: true
     name?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -3408,6 +3427,7 @@ export namespace Prisma {
     userId: string
     id: number
     name: string
+    createdAt: Date | null
     _count: ListCountAggregateOutputType | null
     _avg: ListAvgAggregateOutputType | null
     _sum: ListSumAggregateOutputType | null
@@ -3433,6 +3453,7 @@ export namespace Prisma {
     userId?: boolean
     id?: boolean
     name?: boolean
+    createdAt?: boolean
     items?: boolean | List$itemsArgs<ExtArgs>
     _count?: boolean | ListCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["list"]>
@@ -3441,21 +3462,24 @@ export namespace Prisma {
     userId?: boolean
     id?: boolean
     name?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["list"]>
 
   export type ListSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     id?: boolean
     name?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["list"]>
 
   export type ListSelectScalar = {
     userId?: boolean
     id?: boolean
     name?: boolean
+    createdAt?: boolean
   }
 
-  export type ListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "id" | "name", ExtArgs["result"]["list"]>
+  export type ListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "id" | "name" | "createdAt", ExtArgs["result"]["list"]>
   export type ListInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | List$itemsArgs<ExtArgs>
     _count?: boolean | ListCountOutputTypeDefaultArgs<ExtArgs>
@@ -3472,6 +3496,7 @@ export namespace Prisma {
       userId: string
       id: number
       name: string
+      createdAt: Date | null
     }, ExtArgs["result"]["list"]>
     composites: {}
   }
@@ -3899,6 +3924,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"List", 'String'>
     readonly id: FieldRef<"List", 'Int'>
     readonly name: FieldRef<"List", 'String'>
+    readonly createdAt: FieldRef<"List", 'DateTime'>
   }
     
 
@@ -4345,6 +4371,7 @@ export namespace Prisma {
 
   export const GroceryItemScalarFieldEnum: {
     id: 'id',
+    img_url: 'img_url',
     name: 'name',
     brand: 'brand',
     unit: 'unit',
@@ -4370,7 +4397,8 @@ export namespace Prisma {
   export const ListScalarFieldEnum: {
     userId: 'userId',
     id: 'id',
-    name: 'name'
+    name: 'name',
+    createdAt: 'createdAt'
   };
 
   export type ListScalarFieldEnum = (typeof ListScalarFieldEnum)[keyof typeof ListScalarFieldEnum]
@@ -4469,6 +4497,7 @@ export namespace Prisma {
     OR?: GroceryItemWhereInput[]
     NOT?: GroceryItemWhereInput | GroceryItemWhereInput[]
     id?: IntFilter<"GroceryItem"> | number
+    img_url?: StringNullableFilter<"GroceryItem"> | string | null
     name?: StringFilter<"GroceryItem"> | string
     brand?: StringNullableFilter<"GroceryItem"> | string | null
     unit?: StringFilter<"GroceryItem"> | string
@@ -4480,6 +4509,7 @@ export namespace Prisma {
 
   export type GroceryItemOrderByWithRelationInput = {
     id?: SortOrder
+    img_url?: SortOrderInput | SortOrder
     name?: SortOrder
     brand?: SortOrderInput | SortOrder
     unit?: SortOrder
@@ -4494,6 +4524,7 @@ export namespace Prisma {
     AND?: GroceryItemWhereInput | GroceryItemWhereInput[]
     OR?: GroceryItemWhereInput[]
     NOT?: GroceryItemWhereInput | GroceryItemWhereInput[]
+    img_url?: StringNullableFilter<"GroceryItem"> | string | null
     name?: StringFilter<"GroceryItem"> | string
     brand?: StringNullableFilter<"GroceryItem"> | string | null
     unit?: StringFilter<"GroceryItem"> | string
@@ -4505,6 +4536,7 @@ export namespace Prisma {
 
   export type GroceryItemOrderByWithAggregationInput = {
     id?: SortOrder
+    img_url?: SortOrderInput | SortOrder
     name?: SortOrder
     brand?: SortOrderInput | SortOrder
     unit?: SortOrder
@@ -4523,6 +4555,7 @@ export namespace Prisma {
     OR?: GroceryItemScalarWhereWithAggregatesInput[]
     NOT?: GroceryItemScalarWhereWithAggregatesInput | GroceryItemScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"GroceryItem"> | number
+    img_url?: StringNullableWithAggregatesFilter<"GroceryItem"> | string | null
     name?: StringWithAggregatesFilter<"GroceryItem"> | string
     brand?: StringNullableWithAggregatesFilter<"GroceryItem"> | string | null
     unit?: StringWithAggregatesFilter<"GroceryItem"> | string
@@ -4592,6 +4625,7 @@ export namespace Prisma {
     userId?: StringFilter<"List"> | string
     id?: IntFilter<"List"> | number
     name?: StringFilter<"List"> | string
+    createdAt?: DateTimeNullableFilter<"List"> | Date | string | null
     items?: GroceryItemListRelationFilter
   }
 
@@ -4599,6 +4633,7 @@ export namespace Prisma {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrderInput | SortOrder
     items?: GroceryItemOrderByRelationAggregateInput
   }
 
@@ -4609,6 +4644,7 @@ export namespace Prisma {
     NOT?: ListWhereInput | ListWhereInput[]
     userId?: StringFilter<"List"> | string
     name?: StringFilter<"List"> | string
+    createdAt?: DateTimeNullableFilter<"List"> | Date | string | null
     items?: GroceryItemListRelationFilter
   }, "id">
 
@@ -4616,6 +4652,7 @@ export namespace Prisma {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrderInput | SortOrder
     _count?: ListCountOrderByAggregateInput
     _avg?: ListAvgOrderByAggregateInput
     _max?: ListMaxOrderByAggregateInput
@@ -4630,9 +4667,11 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"List"> | string
     id?: IntWithAggregatesFilter<"List"> | number
     name?: StringWithAggregatesFilter<"List"> | string
+    createdAt?: DateTimeNullableWithAggregatesFilter<"List"> | Date | string | null
   }
 
   export type GroceryItemCreateInput = {
+    img_url?: string | null
     name: string
     brand?: string | null
     unit: string
@@ -4643,6 +4682,7 @@ export namespace Prisma {
 
   export type GroceryItemUncheckedCreateInput = {
     id?: number
+    img_url?: string | null
     name: string
     brand?: string | null
     unit: string
@@ -4652,6 +4692,7 @@ export namespace Prisma {
   }
 
   export type GroceryItemUpdateInput = {
+    img_url?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -4662,6 +4703,7 @@ export namespace Prisma {
 
   export type GroceryItemUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    img_url?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -4672,6 +4714,7 @@ export namespace Prisma {
 
   export type GroceryItemCreateManyInput = {
     id?: number
+    img_url?: string | null
     name: string
     brand?: string | null
     unit: string
@@ -4681,6 +4724,7 @@ export namespace Prisma {
   }
 
   export type GroceryItemUpdateManyMutationInput = {
+    img_url?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -4690,6 +4734,7 @@ export namespace Prisma {
 
   export type GroceryItemUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    img_url?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -4754,6 +4799,7 @@ export namespace Prisma {
   export type ListCreateInput = {
     userId: string
     name: string
+    createdAt?: Date | string | null
     items?: GroceryItemCreateNestedManyWithoutListInput
   }
 
@@ -4761,12 +4807,14 @@ export namespace Prisma {
     userId: string
     id?: number
     name: string
+    createdAt?: Date | string | null
     items?: GroceryItemUncheckedCreateNestedManyWithoutListInput
   }
 
   export type ListUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: GroceryItemUpdateManyWithoutListNestedInput
   }
 
@@ -4774,6 +4822,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: GroceryItemUncheckedUpdateManyWithoutListNestedInput
   }
 
@@ -4781,17 +4830,20 @@ export namespace Prisma {
     userId: string
     id?: number
     name: string
+    createdAt?: Date | string | null
   }
 
   export type ListUpdateManyMutationInput = {
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ListUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -4803,21 +4855,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -4833,6 +4870,21 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -4858,6 +4910,7 @@ export namespace Prisma {
 
   export type GroceryItemCountOrderByAggregateInput = {
     id?: SortOrder
+    img_url?: SortOrder
     name?: SortOrder
     brand?: SortOrder
     unit?: SortOrder
@@ -4873,6 +4926,7 @@ export namespace Prisma {
 
   export type GroceryItemMaxOrderByAggregateInput = {
     id?: SortOrder
+    img_url?: SortOrder
     name?: SortOrder
     brand?: SortOrder
     unit?: SortOrder
@@ -4883,6 +4937,7 @@ export namespace Prisma {
 
   export type GroceryItemMinOrderByAggregateInput = {
     id?: SortOrder
+    img_url?: SortOrder
     name?: SortOrder
     brand?: SortOrder
     unit?: SortOrder
@@ -4912,24 +4967,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -4946,6 +4983,24 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5035,6 +5090,7 @@ export namespace Prisma {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ListAvgOrderByAggregateInput = {
@@ -5045,12 +5101,14 @@ export namespace Prisma {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ListMinOrderByAggregateInput = {
     userId?: SortOrder
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ListSumOrderByAggregateInput = {
@@ -5063,12 +5121,12 @@ export namespace Prisma {
     connect?: ListWhereUniqueInput
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type ListUpdateOneWithoutItemsNestedInput = {
@@ -5154,20 +5212,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5180,6 +5224,20 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -5220,23 +5278,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5252,6 +5293,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5309,12 +5367,14 @@ export namespace Prisma {
   export type ListCreateWithoutItemsInput = {
     userId: string
     name: string
+    createdAt?: Date | string | null
   }
 
   export type ListUncheckedCreateWithoutItemsInput = {
     userId: string
     id?: number
     name: string
+    createdAt?: Date | string | null
   }
 
   export type ListCreateOrConnectWithoutItemsInput = {
@@ -5336,15 +5396,18 @@ export namespace Prisma {
   export type ListUpdateWithoutItemsInput = {
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ListUncheckedUpdateWithoutItemsInput = {
     userId?: StringFieldUpdateOperationsInput | string
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type GroceryItemCreateWithoutListInput = {
+    img_url?: string | null
     name: string
     brand?: string | null
     unit: string
@@ -5354,6 +5417,7 @@ export namespace Prisma {
 
   export type GroceryItemUncheckedCreateWithoutListInput = {
     id?: number
+    img_url?: string | null
     name: string
     brand?: string | null
     unit: string
@@ -5392,6 +5456,7 @@ export namespace Prisma {
     OR?: GroceryItemScalarWhereInput[]
     NOT?: GroceryItemScalarWhereInput | GroceryItemScalarWhereInput[]
     id?: IntFilter<"GroceryItem"> | number
+    img_url?: StringNullableFilter<"GroceryItem"> | string | null
     name?: StringFilter<"GroceryItem"> | string
     brand?: StringNullableFilter<"GroceryItem"> | string | null
     unit?: StringFilter<"GroceryItem"> | string
@@ -5402,6 +5467,7 @@ export namespace Prisma {
 
   export type GroceryItemCreateManyListInput = {
     id?: number
+    img_url?: string | null
     name: string
     brand?: string | null
     unit: string
@@ -5410,6 +5476,7 @@ export namespace Prisma {
   }
 
   export type GroceryItemUpdateWithoutListInput = {
+    img_url?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -5419,6 +5486,7 @@ export namespace Prisma {
 
   export type GroceryItemUncheckedUpdateWithoutListInput = {
     id?: IntFieldUpdateOperationsInput | number
+    img_url?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -5428,6 +5496,7 @@ export namespace Prisma {
 
   export type GroceryItemUncheckedUpdateManyWithoutListInput = {
     id?: IntFieldUpdateOperationsInput | number
+    img_url?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string

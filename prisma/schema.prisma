@@ -16,6 +16,7 @@ datasource db {
 
 model GroceryItem{
   id Int @id @default(autoincrement())
+  img_url String?
   name String
   brand String?
   unit String
@@ -37,4 +38,5 @@ model List{
   id Int @id @default(autoincrement())
   name String
   items GroceryItem[]
+  createdAt DateTime?
 }

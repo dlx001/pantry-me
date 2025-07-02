@@ -122,6 +122,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.GroceryItemScalarFieldEnum = {
   id: 'id',
+  img_url: 'img_url',
   name: 'name',
   brand: 'brand',
   unit: 'unit',
@@ -141,7 +142,8 @@ exports.Prisma.ItemScalarFieldEnum = {
 exports.Prisma.ListScalarFieldEnum = {
   userId: 'userId',
   id: 'id',
-  name: 'name'
+  name: 'name',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {

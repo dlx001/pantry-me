@@ -15,14 +15,15 @@ datasource db {
 }
 
 model GroceryItem {
-  id     Int     @id @default(autoincrement())
-  name   String
-  brand  String?
-  unit   String
-  price  String
-  listId Int?
-  list   List?   @relation(fields: [listId], references: [id])
-  store  String
+  id      Int     @id @default(autoincrement())
+  img_url String?
+  name    String
+  brand   String?
+  unit    String
+  price   String
+  listId  Int?
+  list    List?   @relation(fields: [listId], references: [id])
+  store   String
 }
 
 model Item {
@@ -34,8 +35,9 @@ model Item {
 }
 
 model List {
-  userId String
-  id     Int           @id @default(autoincrement())
-  name   String
-  items  GroceryItem[]
+  userId    String
+  id        Int           @id @default(autoincrement())
+  name      String
+  items     GroceryItem[]
+  createdAt DateTime?
 }
