@@ -4633,7 +4633,6 @@ export namespace Prisma {
   }
 
   export type GroceryItemCreateInput = {
-    id: number
     name: string
     brand?: string | null
     unit: string
@@ -4643,7 +4642,7 @@ export namespace Prisma {
   }
 
   export type GroceryItemUncheckedCreateInput = {
-    id: number
+    id?: number
     name: string
     brand?: string | null
     unit: string
@@ -4653,7 +4652,6 @@ export namespace Prisma {
   }
 
   export type GroceryItemUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -4673,7 +4671,7 @@ export namespace Prisma {
   }
 
   export type GroceryItemCreateManyInput = {
-    id: number
+    id?: number
     name: string
     brand?: string | null
     unit: string
@@ -4683,7 +4681,6 @@ export namespace Prisma {
   }
 
   export type GroceryItemUpdateManyMutationInput = {
-    id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
@@ -5066,14 +5063,6 @@ export namespace Prisma {
     connect?: ListWhereUniqueInput
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -5090,6 +5079,14 @@ export namespace Prisma {
     delete?: ListWhereInput | boolean
     connect?: ListWhereUniqueInput
     update?: XOR<XOR<ListUpdateToOneWithWhereWithoutItemsInput, ListUpdateWithoutItemsInput>, ListUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -5348,7 +5345,6 @@ export namespace Prisma {
   }
 
   export type GroceryItemCreateWithoutListInput = {
-    id: number
     name: string
     brand?: string | null
     unit: string
@@ -5357,7 +5353,7 @@ export namespace Prisma {
   }
 
   export type GroceryItemUncheckedCreateWithoutListInput = {
-    id: number
+    id?: number
     name: string
     brand?: string | null
     unit: string
@@ -5405,7 +5401,7 @@ export namespace Prisma {
   }
 
   export type GroceryItemCreateManyListInput = {
-    id: number
+    id?: number
     name: string
     brand?: string | null
     unit: string
@@ -5414,7 +5410,6 @@ export namespace Prisma {
   }
 
   export type GroceryItemUpdateWithoutListInput = {
-    id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     brand?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: StringFieldUpdateOperationsInput | string
