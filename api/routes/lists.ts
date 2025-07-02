@@ -23,6 +23,9 @@ router.get(
         where: {
           userId: clerkId,
         },
+        include: {
+          items: true,
+        },
       });
       if (lists) {
         res.status(200).json({ message: "success", data: lists });
