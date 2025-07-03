@@ -43,7 +43,14 @@ router.post("/scan", async (req, res) => {
       await mongoClient.connect();
       const db = mongoClient.db("Grocery");
       const collection = db.collection("Pantry");
-      const result = await collection.findOne({ code: data });
+      
+      // Use regex search with case-insensitive option
+      const result = await collection.findOne({ 
+        code: { 
+          $regex: data, 
+          $options: "i" 
+        } 
+      });
 
       res.status(202).json({ data: result });
     } catch (err) {
