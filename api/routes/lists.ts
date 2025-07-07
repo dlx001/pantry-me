@@ -56,7 +56,6 @@ router.post(
           },
         });
 
-        // Create all grocery items
         for (const item of items) {
           await tx.groceryItem.create({
             data: { ...item, listId: newList.id },
