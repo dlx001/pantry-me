@@ -9,10 +9,12 @@ import prisma from "../lib/prisma";
 import mongoClient from "../lib/mongo";
 import { requireAuth } from "@clerk/clerk-sdk-node";
 import { clerkMiddleware } from "@clerk/express";
+import grocery from "./routes/grocery";
 const app = express();
 app.use(clerkMiddleware());
 app.use("/item", item);
 app.use("/lists", lists);
+app.use("/grocery", grocery);
 app.use(express.json());
 
 app.get("/", async function (req: Request, res: Response) {
