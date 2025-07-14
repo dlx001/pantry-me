@@ -2,6 +2,7 @@ import express from "express";
 import * as kroger from './stores/kroger';
 import * as walmart from './stores/walmart';
 import { requireAuth } from "@clerk/clerk-sdk-node";
+
 interface StoreHandler {
   getLocation: (req: express.Request, res: express.Response) => Promise<any>;
   getProduct: (req: express.Request, res: express.Response) => Promise<any>;
@@ -12,6 +13,7 @@ const storeHandlers: Record<string, StoreHandler> = {
   kroger,
   walmart,
 };
+
 
 router.get('/location', requireAuth(async (req: any, res: any) => {
   const { store, latlong } = req.query;
@@ -28,5 +30,7 @@ router.get('/product', requireAuth(async (req: any, res: any) => {
   if (!handler) return res.status(400).json({ error: 'Unknown store' });
   return handler(req, res);
 }));
+
+
 
 export default router;
