@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import item from "./routes/item";
 import prisma from "../lib/prisma";
 import mongoClient from "../lib/mongo";
+import redisClient from "../lib/redis";
 import { requireAuth } from "@clerk/clerk-sdk-node";
 import { clerkMiddleware } from "@clerk/express";
 import grocery from "./routes/grocery";
@@ -30,6 +31,18 @@ app.get(
   })
 );
 
-app.listen(3000, () => console.log("Server ready on port 3000."));
+async function startServer() {
+  try {
+    await redisClient.connect();
+    console.log("Connected to Redis");
+
+    app.listen(3000, () => console.log("Server ready on port 3000."));
+  } catch (err) {
+    console.error("Failed to connect to Redis:", err);
+    process.exit(1);
+  }
+}
+
+startServer();
 
 module.exports = app;

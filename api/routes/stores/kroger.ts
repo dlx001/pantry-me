@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import redisClient from "../../../lib/redis";
 let cachedToken: string | null = null;
 let tokenExpiresAt: number = 0;
 
@@ -31,30 +31,36 @@ async function getAccessToken() {
 }
 
 export async function getProduct(req: any, res: any) {
-    let { locationIds, item } = req.query;
-    if (!locationIds) {
-      res.sendStatus(400);
-      return;
-    }
-    let locationIdArr: string[];
-    if (Array.isArray(locationIds)) {
-      locationIdArr = locationIds as string[];
-    } else if (typeof locationIds === "string") {
-      locationIdArr = [locationIds];
-    } else {
-      res.sendStatus(400);
-      return;
-    }
-    if (!item || typeof item !== "string") {
-      res.sendStatus(400);
-      return;
-    }
+  let { locationIds, item } = req.query;
+  if (!locationIds) {
+    res.sendStatus(400);
+    return;
+  }
+  let locationIdArr: string[];
+  if (Array.isArray(locationIds)) {
+    locationIdArr = locationIds as string[];
+  } else if (typeof locationIds === "string") {
+    locationIdArr = [locationIds];
+  } else {
+    res.sendStatus(400);
+    return;
+  }
+  if (!item || typeof item !== "string") {
+    res.sendStatus(400);
+    return;
+  }
 
-    try {
-      const token = await getAccessToken();
-      const results: Record<string, any[]> = {};
-      await Promise.all(
-        locationIdArr.map(async (locationId: string) => {
+  try {
+    const token = await getAccessToken();
+    const results: Record<string, any[]> = {};
+    await Promise.all(
+      locationIdArr.map(async (locationId: string) => {
+        let cacheKey = `kroger:location:${locationId}:items:${item}`;
+        const cached = await redisClient.get(cacheKey);
+        if (cached) {
+          console.log("cache hit");
+          results[locationId] = JSON.parse(cached);
+        } else {
           const response = await axios.get(
             "https://api.kroger.com/v1/products",
             {
@@ -71,26 +77,35 @@ export async function getProduct(req: any, res: any) {
           results[locationId] = response.data.data
             ? response.data.data.slice(0, 5)
             : [];
-        })
-      );
+          await redisClient.setEx(
+            cacheKey,
+            300,
+            JSON.stringify(results[locationId])
+          );
+        }
+      })
+    );
 
-      res.status(202).json(results);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error querying Kroger API", error });
-    }
+    res.status(202).json(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error querying Kroger API", error });
   }
-
-
+}
 
 export async function getLocation(req: any, res: any) {
-    const { latlong } = req.query;
-    if (!latlong) {
-      res.sendStatus(400);
-      return;
-    }
-
-    try {
+  const { latlong } = req.query;
+  if (!latlong) {
+    res.sendStatus(400);
+    return;
+  }
+  const cacheKey = `kroger:location:${latlong}`;
+  try {
+    const cached = await redisClient.get(cacheKey);
+    if (cached) {
+      console.log("cache hit");
+      res.send(JSON.parse(cached));
+    } else {
       const token = await getAccessToken();
 
       const response = await axios.get("https://api.kroger.com/v1/locations", {
@@ -103,8 +118,10 @@ export async function getLocation(req: any, res: any) {
 
       const zipData = response.data;
       console.log("Kroger response data:", zipData);
+      await redisClient.setEx(cacheKey, 300, JSON.stringify(zipData));
       res.send(zipData);
-    } catch (error: any) {
-      res.send(error);
     }
+  } catch (error: any) {
+    res.send(error);
   }
+}
