@@ -37,12 +37,11 @@ export async function getLocation(req: any, res: any) {
       res.send(JSON.parse(cached));
     } else {
       const consumerId = process.env.WALMART_CONSUMER_ID;
-      const privateKeyPath = process.env.WALMART_PRIVATE_KEY_PATH;
-      if (!privateKeyPath) {
+      const privateKeyPem = process.env.WALMART_PRIVATE_KEY;
+      if (!privateKeyPem) {
         res.sendStatus(500);
         return;
       }
-      const privateKeyPem = fs.readFileSync(privateKeyPath);
       const timestamp = Date.now().toString();
       const headersToSign = {
         "WM_CONSUMER.ID": consumerId,
@@ -70,7 +69,7 @@ export async function getLocation(req: any, res: any) {
           },
         }
       );
-      await redisClient.setEx(cacheKey, 300, JSON.stringify(cached));
+      await redisClient.setEx(cacheKey, 300, walmartResponse.data);
       res.send(walmartResponse.data);
     }
   } catch (error: any) {
