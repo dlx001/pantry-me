@@ -15,7 +15,7 @@ PantryMe is a Node.js/Express backend application designed to help users manage 
 - Uses Redis for request caching of 3rd party API calls(walmart + kroger)
   - Uses Prisma ORM with a PostgreSQL backend.
   - Schema defined in `prisma/schema.prisma` and `baseline.sql`.
-  - Users MongoDB for grocery item database for scanner feature
+  - Users MongoDB for grocery item database for scanner feature (leveraged openfoodfacts database through mongodb dump)
 - **Libs (`lib/`)**: Utility modules for database connections (MongoDB, Prisma).
 - **Authentication**:
   - Uses Clerk for user authentication and authorization.
