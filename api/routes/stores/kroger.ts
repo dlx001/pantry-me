@@ -2,7 +2,42 @@ import axios from "axios";
 import redisClient from "../../../lib/redis";
 let cachedToken: string | null = null;
 let tokenExpiresAt: number = 0;
+import { StoreLocation, Product } from "../../../types/types";
+function mapKrogerStore(store: any): StoreLocation {
+  return {
+    locationId: store.locationId,
+    chain: store.chain,
+    address: {
+      addressLine1: store.address.addressLine1,
+      city: store.address.city,
+      state: store.address.state,
+      zipCode: store.address.zipCode,
+      county: store.address.county,
+    },
+    geoLocation: {
+      latitude: store.geolocation.latitude,
+      longitude: store.geolocation.longitude,
+    },
+    name: store.name,
+    phone: store.phone,
+  };
+}
 
+function mapKrogerProduct(product: any): Product {
+  return {
+    productid: product.productId,
+    upc: product.upc,
+    brand: product.brand,
+    description: product.description,
+    image:
+      product.images
+        .find((img: any) => img.perspective === "front" && img.featured)
+        ?.sizes?.find((size: any) => size.size === "medium")?.url || "",
+    price: product.items[0].price.regular,
+    size: product.items[0].size,
+    soldBy: product.items[0].soldBy,
+  };
+}
 async function getAccessToken() {
   const base64 = (str: string) => Buffer.from(str).toString("base64");
   const now = Date.now();
@@ -75,7 +110,7 @@ export async function getProduct(req: any, res: any) {
             }
           );
           results[locationId] = response.data.data
-            ? response.data.data.slice(0, 5)
+            ? response.data.data.slice(0, 5).map(mapKrogerProduct)
             : [];
           await redisClient.setEx(
             cacheKey,
@@ -102,6 +137,7 @@ export async function getLocation(req: any, res: any) {
   const cacheKey = `kroger:location:${latlong}`;
   try {
     const cached = await redisClient.get(cacheKey);
+    //const cached = null;
     if (cached) {
       console.log("cache hit");
       res.send(JSON.parse(cached));
@@ -115,11 +151,9 @@ export async function getLocation(req: any, res: any) {
           "filter.limit": 5,
         },
       });
-
-      const zipData = response.data;
-      console.log("Kroger response data:", zipData);
-      await redisClient.setEx(cacheKey, 300, JSON.stringify(zipData));
-      res.send(zipData);
+      const mappedStores = response.data.data.map(mapKrogerStore);
+      await redisClient.setEx(cacheKey, 300, JSON.stringify(mappedStores));
+      res.send(mappedStores);
     }
   } catch (error: any) {
     res.send(error);

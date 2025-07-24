@@ -2,6 +2,41 @@ const forge = require("node-forge");
 import fs from "fs";
 import axios from "axios";
 import redisClient from "../../../lib/redis";
+import { StoreLocation, Product } from "../../../types/types";
+
+function mapWalmartStore(store: any): StoreLocation {
+  return {
+    locationId: store.no,
+    chain: "Walmart",
+    address: {
+      addressLine1: store.streetAddress,
+      city: store.city,
+      state: store.stateProvCode,
+      zipCode: store.zip,
+      county: "",
+    },
+    geoLocation: {
+      latitude: store.coordinates[1],
+      longitude: store.coordinates[0],
+    },
+    name: store.name,
+    phone: store.phoneNumber,
+  };
+}
+
+function mapWalmartProduct(product: any): Product {
+  return {
+    productid: product.itemId.toString(),
+    upc: product.upc,
+    brand: product.brandName,
+    description: product.name,
+    image: product.mediumImage || product.thumbnailImage || "",
+    price: product.salePrice || product.msrp,
+    size: product.size || "",
+    soldBy: "UNIT",
+  };
+}
+
 function canonicalize(headersToSign: any) {
   const sortedKeys = Object.keys(headersToSign).sort();
   const parameterNames = sortedKeys.map((k) => k.trim()).join(";") + ";";
@@ -37,7 +72,11 @@ export async function getLocation(req: any, res: any) {
       res.send(JSON.parse(cached));
     } else {
       const consumerId = process.env.WALMART_CONSUMER_ID;
-      const privateKeyPem = process.env.WALMART_PRIVATE_KEY;
+      const privateKeyPem = Buffer.from(
+        process.env.WALMART_BASE64!,
+        "base64"
+      ).toString("utf8");
+
       if (!privateKeyPem) {
         res.sendStatus(500);
         return;
@@ -46,16 +85,17 @@ export async function getLocation(req: any, res: any) {
       const headersToSign = {
         "WM_CONSUMER.ID": consumerId,
         "WM_CONSUMER.INTIMESTAMP": timestamp,
-        "WM_SEC.KEY_VERSION": 1,
+        "WM_SEC.KEY_VERSION": "1",
       };
       const signature = generateSignature(privateKeyPem, headersToSign);
       const headers = {
         "WM_CONSUMER.ID": consumerId,
         "WM_CONSUMER.INTIMESTAMP": timestamp,
-        "WM_SEC.KEY_VERSION": 1,
+        "WM_SEC.KEY_VERSION": "1",
         "WM_SEC.AUTH_SIGNATURE": signature,
         Accept: "application/json",
       };
+      console.log(signature);
       let lat = (latlong as string).split(",")[0];
       let long = (latlong as string).split(",")[1];
       const walmartResponse = await axios.get(
@@ -63,14 +103,15 @@ export async function getLocation(req: any, res: any) {
         {
           headers,
           params: {
-            lat: lat,
+            lat,
             lon: long,
             limit: 5,
           },
         }
       );
-      await redisClient.setEx(cacheKey, 300, walmartResponse.data);
-      res.send(walmartResponse.data);
+      const mappedStores = walmartResponse.data.map(mapWalmartStore);
+      await redisClient.setEx(cacheKey, 300, JSON.stringify(mappedStores));
+      res.send(mappedStores);
     }
   } catch (error: any) {
     console.error("Walmart API error:", error.response?.data || error.message);
@@ -87,29 +128,28 @@ export async function getProduct(req: any, res: any) {
   let cacheKey = `Walmart:items${item}`;
   try {
     const cached = await redisClient.get(cacheKey);
+    //const cached = null;
     if (cached) {
       console.log("cache hit");
       res.send(JSON.parse(cached));
     } else {
     }
     const consumerId = process.env.WALMART_CONSUMER_ID;
-    const privateKeyPath = process.env.WALMART_PRIVATE_KEY_PATH;
-    if (!privateKeyPath) {
-      res.sendStatus(500);
-      return;
-    }
-    const privateKeyPem = fs.readFileSync(privateKeyPath);
+    const privateKeyPem = Buffer.from(
+      process.env.WALMART_BASE64!,
+      "base64"
+    ).toString("utf8");
     const timestamp = Date.now().toString();
     const headersToSign = {
       "WM_CONSUMER.ID": consumerId,
       "WM_CONSUMER.INTIMESTAMP": timestamp,
-      "WM_SEC.KEY_VERSION": 1,
+      "WM_SEC.KEY_VERSION": "1",
     };
     const signature = generateSignature(privateKeyPem, headersToSign);
     const headers = {
       "WM_CONSUMER.ID": consumerId,
       "WM_CONSUMER.INTIMESTAMP": timestamp,
-      "WM_SEC.KEY_VERSION": 1,
+      "WM_SEC.KEY_VERSION": "1",
       "WM_SEC.AUTH_SIGNATURE": signature,
       Accept: "application/json",
     };
@@ -119,15 +159,15 @@ export async function getProduct(req: any, res: any) {
         headers,
         params: {
           query: item,
+          numItems: 5,
         },
       }
     );
-    await redisClient.setEx(
-      cacheKey,
-      300,
-      JSON.stringify(walmartResponse.data)
-    );
-    res.send(walmartResponse.data);
+
+    const mappedProducts = walmartResponse.data.items.map(mapWalmartProduct);
+    await redisClient.setEx(cacheKey, 300, JSON.stringify(mappedProducts));
+    res.send(mappedProducts);
+    //res.send(walmartResponse.data);
   } catch (error: any) {
     console.error("Walmart API error:", error.response?.data || error.message);
     res.status(500).send({ error: "Failed to fetch Walmart products" });
